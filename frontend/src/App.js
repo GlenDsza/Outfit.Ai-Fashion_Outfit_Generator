@@ -36,6 +36,7 @@ import UpdateUser from "./components/Admin/UpdateUser";
 import ReviewsTable from "./components/Admin/ReviewsTable";
 import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
+import Trending from "./components/Trending/Trending";
 
 function App() {
   const dispatch = useDispatch();
@@ -196,6 +197,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Wishlist />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/trending/:category"
+          element={
+            <ProtectedRoute>
+              <Trending />
             </ProtectedRoute>
           }
         ></Route>
