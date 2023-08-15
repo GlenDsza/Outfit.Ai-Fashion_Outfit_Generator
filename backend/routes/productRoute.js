@@ -12,6 +12,8 @@ const {
   getProducts,
   getTrendingProducts,
   addProductImpression,
+  addToWishlist,
+  addToCart,
 } = require("../controllers/productController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 
@@ -21,6 +23,14 @@ router.route("/trendingProducts").get(getTrendingProducts);
 
 router.route("/products").get(getAllProducts);
 router.route("/products/all").get(getProducts);
+
+router
+  .route("/product/addToWishlist/:productId")
+  .post(isAuthenticatedUser, addToWishlist);
+
+router
+  .route("/product/addToCart/:productId")
+  .post(isAuthenticatedUser, addToCart);
 
 router
   .route("/admin/products")

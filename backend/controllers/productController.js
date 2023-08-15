@@ -3,6 +3,7 @@ const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const SearchFeatures = require("../utils/searchFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
+const User = require("../models/userModel");
 
 // Get All Products
 exports.getAllProducts = asyncErrorHandler(async (req, res, next) => {
@@ -341,7 +342,6 @@ exports.deleteReview = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
-// Still to be implemented
 exports.getTrendingProducts = asyncErrorHandler(async (req, res, next) => {
   const lastWeek = new Date();
   lastWeek.setDate(lastWeek.getDate() - 7);
@@ -381,4 +381,64 @@ exports.getTrendingProducts = asyncErrorHandler(async (req, res, next) => {
     success: true,
     trendingProducts,
   });
+});
+
+exports.addToWishlist = asyncErrorHandler(async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    if (!user.wishlist.some((item) => item.product.equals(productId))) {
+      user.wishlist.push({ product: productId });
+      await user.save();
+    }
+
+    res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+exports.addToCart = asyncErrorHandler(async (req, res, next) => {
+  try {
+    const productId = req.params.productId;
+    const userId = req.user._id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    if (!user.cart.some((item) => item.product.equals(productId))) {
+      user.cart.push({ product: productId });
+      await user.save();
+    }
+
+    res.status(200).json({
+      success: true,
+      product,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
 });

@@ -1,5 +1,6 @@
 const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const Order = require("../models/orderModel");
+const User = require("../models/userModel");
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const sendEmail = require("../utils/sendEmail");
@@ -7,7 +8,7 @@ const sendEmail = require("../utils/sendEmail");
 // Create New Order
 exports.newOrder = asyncErrorHandler(async (req, res, next) => {
   const { shippingInfo, orderItems, paymentInfo, totalPrice } = req.body;
-
+  const userId = req.user._id;
   const orderExist = await Order.findOne({ paymentInfo });
 
   if (orderExist) {
@@ -23,17 +24,31 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
     user: req.user._id,
   });
 
-  await sendEmail({
-    email: req.user.email,
-    templateId: process.env.SENDGRID_ORDER_TEMPLATEID,
-    data: {
-      name: req.user.name,
-      shippingInfo,
-      orderItems,
-      totalPrice,
-      oid: order._id,
-    },
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  orderItems.map(async (order) => {
+    if (
+      !user.pastPurchases.some((item) => item.product.equals(order.product))
+    ) {
+      user.pastPurchases.push({ product: order.product });
+      await user.save();
+    }
   });
+
+  // await sendEmail({
+  //   email: req.user.email,
+  //   templateId: process.env.SENDGRID_ORDER_TEMPLATEID,
+  //   data: {
+  //     name: req.user.name,
+  //     shippingInfo,
+  //     orderItems,
+  //     totalPrice,
+  //     oid: order._id,
+  //   },
+  // });
 
   order.orderItems.forEach(async (i) => {
     await updateStock(i.product, i.quantity);
