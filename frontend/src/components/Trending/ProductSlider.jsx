@@ -7,9 +7,9 @@ const ProductSlider = ({ title, setCategoryFunc, index }) => {
   const { loading, products } = useSelector((state) => state.trendingProducts);
 
   return (
-    <section className="bg-white w-full shadow overflow-hidden mb-3">
+    <section className="bg-white w-full shadow overflow-hidden mb-4">
       {/* <!-- header --> */}
-      <div className="flex px-6 py-4 justify-between items-center">
+      <div className="flex px-6 py-2 justify-between items-center">
         <div className="title flex flex-col gap-0.5">
           <h1 className="text-xl font-medium">{title}</h1>
         </div>

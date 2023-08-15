@@ -38,7 +38,7 @@ const Product = (props) => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 px-2 py-6 relative">
+    <div className="flex flex-col items-center gap-2 px-2 py-3 relative">
       {/* <!-- image & product title --> */}
       <Link
         to={`/product/${_id}`}

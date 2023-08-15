@@ -13,7 +13,6 @@ const productSchema = new mongoose.Schema({
   highlights: [
     {
       type: String,
-      required: true,
     },
   ],
   specifications: [
@@ -118,6 +117,42 @@ const productSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
+  },
+  product_group_name: {
+    type: String,
+  },
+  graphical_appearance_name: {
+    type: String,
+  },
+  colour_group_name: {
+    type: String,
+  },
+  perceived_colour_value_name: {
+    type: String,
+  },
+  perceived_colour_master_name: {
+    type: String,
+  },
+  department_name: {
+    type: String,
+  },
+  index_name: {
+    type: String,
+  },
+  index_group_name: {
+    type: String,
+  },
+  section_name: {
+    type: String,
+  },
+  garment_group_name: {
+    type: String,
+  },
+  garment_group_name: {
+    type: String,
+  },
+  detail_desc: {
+    type: String,
   },
 });
 
