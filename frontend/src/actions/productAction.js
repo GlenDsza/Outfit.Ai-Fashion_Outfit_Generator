@@ -62,17 +62,15 @@ export const getProducts =
   };
 
 // Get Trending Products of a specific Category
-export const getTrendingProducts = (category) => async (dispatch) => {
+export const getTrendingProducts = () => async (dispatch) => {
   try {
     dispatch({ type: TRENDING_PRODUCTS_REQUEST });
 
-    const { data } = await axios.get(
-      `/api/v1/trendingProducts?category=${category}`
-    );
+    const { data } = await axios.get(`/api/v1/trendingProducts`);
 
     dispatch({
       type: TRENDING_PRODUCTS_SUCCESS,
-      payload: data,
+      payload: data.trendingProducts,
     });
   } catch (error) {
     dispatch({
@@ -81,7 +79,6 @@ export const getTrendingProducts = (category) => async (dispatch) => {
     });
   }
 };
-// dispatch(getTrendingProducts(product?.category)); should be added in jsx
 
 // Get All Products Of Same Category
 export const getSimilarProducts = (category) => async (dispatch) => {

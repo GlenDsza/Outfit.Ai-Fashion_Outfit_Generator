@@ -345,27 +345,35 @@ exports.deleteReview = asyncErrorHandler(async (req, res, next) => {
 exports.getTrendingProducts = asyncErrorHandler(async (req, res, next) => {
   const lastWeek = new Date();
   lastWeek.setDate(lastWeek.getDate() - 7);
-  const requestedCategory = req.query.category.toString();
   const trendingProducts = await Product.aggregate([
     {
       $match: {
-        category: requestedCategory,
         "purchases.date": { $gte: lastWeek },
       },
     },
     {
-      $project: {
-        name: 1,
-        totalPurchases: {
-          $sum: "$purchases.count",
+      $group: {
+        _id: "$category",
+        products: {
+          $push: {
+            info: "$$ROOT",
+            totalPurchases: { $sum: "$purchases.count" },
+          },
         },
       },
     },
     {
-      $sort: { totalPurchases: -1 },
+      $project: {
+        category: "$_id",
+        products: 1,
+        _id: 0,
+      },
     },
     {
-      $limit: 10,
+      $sort: { "products.totalPurchases": -1 },
+    },
+    {
+      $limit: 12,
     },
   ]);
 

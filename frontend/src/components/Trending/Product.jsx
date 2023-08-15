@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   addToWishlist,
   removeFromWishlist,
-} from "../../../actions/wishlistAction";
+} from "../../actions/wishlistAction";
 import { useSnackbar } from "notistack";
 import axios from "axios";
-import { getDiscount } from "../../../utils/functions";
+import { getDiscount } from "../../utils/functions";
 
 const Product = (props) => {
   const { _id, name, images, ratings, numOfReviews, price, cuttedPrice } =

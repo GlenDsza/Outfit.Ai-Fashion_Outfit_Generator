@@ -2,11 +2,13 @@
 export const categories = [
   "Electronics",
   "Mobiles",
-  "Laptops",
   "Men's Fashion",
   "Women's Fashion",
   "Kid's Fashion",
   "Home",
+  "Appliances",
+  "Beauty,Toys & More",
+  "Grocery",
 ];
 
 // Product Sliders Offers

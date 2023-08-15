@@ -48,6 +48,7 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
         <Link
           className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t"
           to="/admin/dashboard"
+          key={"dashboard"}
         >
           <span className="text-primary-blue">
             <DashboardIcon sx={{ fontSize: "18px" }} />
@@ -59,6 +60,7 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
       <Link
         className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t"
         to="/account"
+        key={"profile"}
       >
         <span className="text-primary-blue">
           <AccountCircleIcon sx={{ fontSize: "18px" }} />

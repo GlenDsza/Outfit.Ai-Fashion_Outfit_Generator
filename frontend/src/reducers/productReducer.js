@@ -36,9 +36,6 @@ import {
   SLIDER_PRODUCTS_FAIL,
   SLIDER_PRODUCTS_REQUEST,
   SLIDER_PRODUCTS_SUCCESS,
-  TRENDING_PRODUCTS_REQUEST,
-  TRENDING_PRODUCTS_SUCCESS,
-  TRENDING_PRODUCTS_FAIL,
 } from "../constants/productConstants";
 
 export const productsReducer = (
@@ -49,7 +46,6 @@ export const productsReducer = (
     case ALL_PRODUCTS_REQUEST:
     case ADMIN_PRODUCTS_REQUEST:
     case SLIDER_PRODUCTS_REQUEST:
-    case TRENDING_PRODUCTS_REQUEST:
       return {
         loading: true,
         products: [],
@@ -64,7 +60,6 @@ export const productsReducer = (
       };
     case ADMIN_PRODUCTS_SUCCESS:
     case SLIDER_PRODUCTS_SUCCESS:
-    case TRENDING_PRODUCTS_SUCCESS:
       return {
         loading: false,
         products: payload,
@@ -72,7 +67,6 @@ export const productsReducer = (
     case ALL_PRODUCTS_FAIL:
     case ADMIN_PRODUCTS_FAIL:
     case SLIDER_PRODUCTS_FAIL:
-    case TRENDING_PRODUCTS_FAIL:
       return {
         loading: false,
         error: payload,
