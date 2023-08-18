@@ -1,0 +1,44 @@
+{
+  "product_ids": { "0": "0715027", "1": "0715522" },
+  "article_ids": { "0": "0715027001", "1": "0715522001" },
+  "products_data": [
+    {
+      "Article ID": "0715027001",
+      "Product name": "3P SS T-shirt girly",
+      "Product code": "0715027",
+      "Product type": "T-shirt",
+      "Product group": "Garment Upper body",
+      "Graphical appearance": "Solid",
+      "Colour group": "Light Pink",
+      "Perceived colour": "Dusty Light",
+      "Primary Perceived colour": "Pink",
+      "Department": "Baby basics",
+      "Index group": "Baby/Children",
+      "Section": "Baby Essentials & Complements",
+      "Garment group": "Jersey Basic",
+      "Detail description": "Tops in soft organic cotton jersey with a decorative scalloped trim around the neckline, a concealed press-stud on one shoulder and short puff sleeves with a decorative scalloped trim."
+    },
+    {
+      "Article ID": "0715522001",
+      "Product name": "Basic Multiset SS",
+      "Product code": "0715522",
+      "Product type": "Garment Set",
+      "Product group": "Garment Full body",
+      "Graphical appearance": "All over pattern",
+      "Colour group": "Grey",
+      "Perceived colour": "Dusty Light",
+      "Primary Perceived colour": "Grey",
+      "Department": "Baby basics",
+      "Index group": "Baby/Children",
+      "Section": "Baby Essentials & Complements",
+      "Garment group": "Jersey Basic",
+      "Detail description": "Set with two bodysuits, two pairs of leggings, a romper suit and a scarf in soft cotton jersey. Bodysuits with short sleeves and press-studs on one shoulder and at the crotch. Leggings with an elasticated waist. Romper suit with long sleeves, front pockets and press-studs down the front and along one leg. Scarf with press-studs at the back of the neck."
+    }
+  ],
+  "answer": "  Sure! Based on the given context, here are the top 20-30 unique product ID strings that are suitable for a casual outfit for women, ranked by their relevance in the format 'Products: [product_id1, product_id2]':\n\nProducts: [0568137002, 0693994001]\n\nThese two products are highly relevant for a casual outfit for women as they both belong to the Ladieswear department and have a similar graphical appearance (solid and all-over pattern, respectively). The T-shirt (0568137002) and stand-up skirt (0693994001) can be paired together to create a comfortable and stylish outfit for everyday wear.",
+  "outfit_descriptions": [
+    "A stylish and comfortable set consisting of a light pink 3P SS T-shirt with a decorative scalloped trim around the neckline, paired with white leggings and a matching scarf. The perfect combination of elegance and comfort for a summer evening stroll or a casual day out.",
+    "A chic and versatile multiset featuring a grey basic romper suit with long sleeves, front pockets, and press-studs down the front and along one leg, teamed with a pair of dusty light grey leggings and a soft pink scarf. Perfect for a busy summer day with plenty of activities planned.",
+    "An adorable and practical ensemble comprising a light grey basic bodysuit with short sleeves and press-studs on one shoulder, paired with a pair of white leggings and a matching scarf. Ideal for a summer playdate or a family outing to the park."
+  ]
+}
