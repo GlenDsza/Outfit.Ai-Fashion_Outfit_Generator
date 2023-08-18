@@ -37,7 +37,7 @@ import ReviewsTable from "./components/Admin/ReviewsTable";
 import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
 import Trending from "./components/Trending/Trending";
-import Chatbot from "./components/Chatbot/Chatbot";
+import Chatbot from "./components/Generator/Generator";
 
 function App() {
   const dispatch = useDispatch();
