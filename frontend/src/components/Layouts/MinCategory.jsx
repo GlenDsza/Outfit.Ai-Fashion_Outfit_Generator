@@ -1,17 +1,6 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Link } from "react-router-dom";
-
-const categories = [
-  "Electronics",
-  "Mobiles",
-  "Men's Fashion",
-  "Women's Fashion",
-  "Kid's Fashion",
-  "Home",
-  "Appliances",
-  "Beauty,Toys & More",
-  "Grocery",
-];
+import { categories } from "../../utils/constants";
 
 const MinCategory = () => {
   return (

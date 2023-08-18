@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema({
+  article_id: {
+    type: String,
+  },
+  product_code: {
+    type: String,
+  },
   name: {
     type: String,
     required: [true, "Please enter product name"],
@@ -121,6 +127,9 @@ const productSchema = new mongoose.Schema({
   product_group_name: {
     type: String,
   },
+  product_type_name: {
+    type: String,
+  },
   graphical_appearance_name: {
     type: String,
   },
@@ -148,10 +157,7 @@ const productSchema = new mongoose.Schema({
   garment_group_name: {
     type: String,
   },
-  garment_group_name: {
-    type: String,
-  },
-  detail_desc: {
+  elaborated_description: {
     type: String,
   },
 });

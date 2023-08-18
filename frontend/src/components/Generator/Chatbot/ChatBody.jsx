@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import autoAnimate from "@formkit/auto-animate";
 import OutfitSwiperModal from "../OutfitSwiperModal";
+import { useSelector } from "react-redux";
 
 const ChatMessage = ({ message, imagesObj, setModalTriggered }) => {
+  const { user } = useSelector((state) => state.user);
   const isAiMessage = message?.sender === "ai";
   const messageStyle = `border-[#999999] break-words border-1 rounded-md p-2 max-w-[90%] ${
     isAiMessage ? "bg-[#FFFFFF22] dropshadow-md mr-auto" : ""
@@ -28,9 +30,9 @@ const ChatMessage = ({ message, imagesObj, setModalTriggered }) => {
 
           {!isAiMessage && (
             <img
-              src="./user.png"
+              src={user?.avatar?.url ? user?.avatar?.url : "./user.png"}
               alt="User"
-              className="w-7 h-7 rounded-full mt-2 ml-2"
+              className="w-8 h-8 rounded-full mt-2 ml-2"
             />
           )}
         </div>

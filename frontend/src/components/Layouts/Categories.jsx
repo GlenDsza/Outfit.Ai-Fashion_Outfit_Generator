@@ -6,7 +6,7 @@ import electronics from "../../assets/images/Categories/electronics.png";
 import home from "../../assets/images/Categories/home.png";
 import appliances from "../../assets/images/Categories/appliances.png";
 import beauty from "../../assets/images/Categories/beauty.png";
-import grocery from "../../assets/images/Categories/grocery.png";
+import accessories from "../../assets/images/Categories/accessories.png";
 import { Link } from "react-router-dom";
 
 const catNav = [
@@ -21,6 +21,10 @@ const catNav = [
   {
     name: "Kid's Fashion",
     icon: kids,
+  },
+  {
+    name: "Accessories",
+    icon: accessories,
   },
   {
     name: "Mobiles",
@@ -41,10 +45,6 @@ const catNav = [
   {
     name: "Beauty,Toys & more",
     icon: beauty,
-  },
-  {
-    name: "Grocery",
-    icon: grocery,
   },
 ];
 

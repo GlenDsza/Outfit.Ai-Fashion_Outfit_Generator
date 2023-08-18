@@ -5,10 +5,10 @@ export const categories = [
   "Men's Fashion",
   "Women's Fashion",
   "Kid's Fashion",
+  "Accessories",
   "Home",
   "Appliances",
   "Beauty,Toys & More",
-  "Grocery",
 ];
 
 // Product Sliders Offers
