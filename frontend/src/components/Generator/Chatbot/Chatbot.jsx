@@ -3,7 +3,7 @@ import ChatBody from "./ChatBody";
 import ChatInput from "./ChatInput";
 import axios from "axios";
 
-const Chatbot = () => {
+const Chatbot = ({ setModalTriggered }) => {
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([]);
   const [imagesObj, setImagesObj] = useState([]);
