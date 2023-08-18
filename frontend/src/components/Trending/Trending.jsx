@@ -10,7 +10,7 @@ import {
   RadioGroup,
 } from "@mui/material";
 import { categories } from "../../utils/constants";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import NoProduct from "../Products/NoProduct";
 import Loader from "../Layouts/Loader";
 import ProductSlider from "./ProductSlider";

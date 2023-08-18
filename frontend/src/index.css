@@ -3,8 +3,9 @@
 @tailwind utilities;
 
 body {
-    background-color: #f1f3f6;
-    font-family: 'Roboto', sans-serif;
+  background-color: #f1f3f6;
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
 }
 
 /* hover navbar dropdown arrow */
@@ -17,8 +18,118 @@ body {
 
 /* login signup sidebar bg image */
 .loginSidebar {
-    background-image: url("https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png");
-    background-position: center 85%;
-    background-repeat: no-repeat;
+  background-image: url("https://static-assets-web.flixcart.com/www/linchpin/fk-cp-zion/img/login_img_c4a81e.png");
+  background-position: center 85%;
+  background-repeat: no-repeat;
 }
 /* login signup sidebar bg image */
+
+/* gradient 01 Chatbot */
+
+.gradient-01 {
+  position: absolute;
+  width: 200px;
+  height: 238px;
+  top: 0;
+  background: #ca00ff;
+  filter: blur(175px);
+}
+
+/* gradient 02 Chatbot */
+
+.gradient-02 {
+  position: absolute;
+  width: 200px;
+  height: 238px;
+  top: -6rem;
+  right: 0px;
+  background: #7aebfb;
+  filter: blur(190px);
+}
+
+/*  scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Slider */
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #1a232e;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  height: 80%;
+  width: 100%;
+}
+
+.mySwiper {
+  height: 20%;
+  box-sizing: border-box;
+  padding: 10px 0;
+}
+
+.mySwiper .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fff;
+  font-weight: bold;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 12px !important;
+  background: #333;
+  padding: 10px;
+  border-radius: 0.375rem;
+}

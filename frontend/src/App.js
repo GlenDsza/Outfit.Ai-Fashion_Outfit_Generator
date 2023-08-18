@@ -37,6 +37,7 @@ import ReviewsTable from "./components/Admin/ReviewsTable";
 import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
 import Trending from "./components/Trending/Trending";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 function App() {
   const dispatch = useDispatch();
@@ -85,13 +86,10 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
-
         <Route path="/cart" element={<Cart />} />
-
         {/* order process */}
         <Route
           path="/shipping"
@@ -101,7 +99,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/order/confirm"
           element={
@@ -110,7 +107,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/process/payment"
           element={
@@ -123,7 +119,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/orders/success"
           element={<OrderSuccess success={true} />}
@@ -133,7 +128,6 @@ function App() {
           element={<OrderSuccess success={false} />}
         />
         {/* order process */}
-
         <Route
           path="/order/:id"
           element={
@@ -142,7 +136,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/orders"
           element={
@@ -151,7 +144,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/order_details/:id"
           element={
@@ -160,7 +152,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/account"
           element={
@@ -169,7 +160,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/account/update"
           element={
@@ -178,7 +168,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/password/update"
           element={
@@ -187,11 +176,8 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route path="/password/forgot" element={<ForgotPassword />} />
-
         <Route path="/password/reset/:token" element={<ResetPassword />} />
-
         <Route
           path="/wishlist"
           element={
@@ -200,12 +186,19 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/trending/:category"
           element={
             <ProtectedRoute>
               <Trending />
+            </ProtectedRoute>
+          }
+        ></Route>
+        <Route
+          path="/ai-outfit-generator"
+          element={
+            <ProtectedRoute>
+              <Chatbot />
             </ProtectedRoute>
           }
         ></Route>
@@ -220,7 +213,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/orders"
           element={
@@ -231,7 +223,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/order/:id"
           element={
@@ -242,7 +233,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/products"
           element={
@@ -253,7 +243,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/new_product"
           element={
@@ -264,7 +253,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/product/:id"
           element={
@@ -275,7 +263,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/users"
           element={
@@ -286,7 +273,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/user/:id"
           element={
@@ -297,7 +283,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route
           path="/admin/reviews"
           element={
@@ -308,7 +293,6 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
       <Footer />

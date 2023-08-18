@@ -3,7 +3,6 @@ const Order = require("../models/orderModel");
 const User = require("../models/userModel");
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
-const sendEmail = require("../utils/sendEmail");
 
 // Create New Order
 exports.newOrder = asyncErrorHandler(async (req, res, next) => {

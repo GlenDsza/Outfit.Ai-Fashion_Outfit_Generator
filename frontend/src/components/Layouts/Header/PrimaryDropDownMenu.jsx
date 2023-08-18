@@ -2,6 +2,7 @@ import React from "react";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
+import AdbIcon from "@mui/icons-material/Adb";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -26,6 +27,11 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
 
   const navs = [
     {
+      title: "AI Outfit Generator",
+      icon: <AdbIcon sx={{ fontSize: "18px" }} />,
+      redirect: "/ai-outfit-generator",
+    },
+    {
       title: "Trending Products",
       icon: <TrendingUpIcon sx={{ fontSize: "18px" }} />,
       redirect: "/trending/all",
@@ -44,7 +50,7 @@ const PrimaryDropDownMenu = ({ setTogglePrimaryDropDown, user }) => {
 
   return (
     <div className="absolute w-60 -left-24 ml-2 top-9 bg-white shadow-2xl rounded flex-col text-sm">
-      {user.role === "admin" && (
+      {user?.role === "admin" && (
         <Link
           className="pl-3 py-3.5 border-b flex gap-3 items-center hover:bg-gray-50 rounded-t"
           to="/admin/dashboard"
