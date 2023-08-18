@@ -79,7 +79,7 @@ const ProductDetails = () => {
     return orders.some((i) =>
       i.orderItems.some((order) => order.product === productId)
     );
-  }, [orders]);
+  }, [orders, productId]);
 
   const isAlreadyReviewed = useMemo(() => {
     if (!product || !user) return false;

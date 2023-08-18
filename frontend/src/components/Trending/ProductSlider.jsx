@@ -4,7 +4,7 @@ import { settings } from "../Home/DealSlider/DealSlider";
 import Product from "./Product";
 
 const ProductSlider = ({ title, setCategoryFunc, index }) => {
-  const { loading, products } = useSelector((state) => state.trendingProducts);
+  const { products } = useSelector((state) => state.trendingProducts);
 
   return (
     <section className="bg-white w-full shadow overflow-hidden mb-4">

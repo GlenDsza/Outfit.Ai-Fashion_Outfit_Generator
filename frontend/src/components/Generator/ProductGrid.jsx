@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Product from "../Trending/Product";
 
 const ProductGrid = () => {
-  const { loading, products } = useSelector((state) => state.products);
+  const { products } = useSelector((state) => state.products);
   return (
     <div className="flex flex-col gap-1 pb-4 justify-center items-center w-full overflow-hidden bg-white rounded-md">
       <div className="fs-4 fw-bold my-1">Recommended Products</div>

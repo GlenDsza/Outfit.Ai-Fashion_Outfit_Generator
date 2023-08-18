@@ -39,14 +39,8 @@ const Products = () => {
   const [categoryToggle, setCategoryToggle] = useState(true);
   const [ratingsToggle, setRatingsToggle] = useState(true);
 
-  const {
-    products,
-    loading,
-    error,
-    productsCount,
-    resultPerPage,
-    filteredProductsCount,
-  } = useSelector((state) => state.products);
+  const { products, loading, error, resultPerPage, filteredProductsCount } =
+    useSelector((state) => state.products);
   const keyword = params.keyword;
 
   const priceHandler = (e, newPrice) => {

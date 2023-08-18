@@ -11,7 +11,7 @@ import Stepper from "./Stepper";
 //     useStripe,
 //     useElements,
 // } from '@stripe/react-stripe-js';
-import { clearErrors, newOrder, updateOrder } from "../../actions/orderAction";
+import { clearErrors, newOrder } from "../../actions/orderAction";
 import { emptyCart } from "../../actions/cartAction";
 import { useSnackbar } from "notistack";
 // import { post } from "../../utils/paytmForm";
@@ -32,7 +32,6 @@ const Payment = () => {
   const [payDisable, setPayDisable] = useState(false);
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
-  const { user } = useSelector((state) => state.user);
   const { error } = useSelector((state) => state.newOrder);
 
   const totalPrice = cartItems.reduce(
