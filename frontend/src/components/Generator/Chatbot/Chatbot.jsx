@@ -8,7 +8,7 @@ import {
   getOutfitPrompts,
 } from "../../../apis/genai.ts";
 
-const Chatbot = ({ setModalTriggered }) => {
+const Chatbot = () => {
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([]);
   const [imagesObj, setImagesObj] = useState([]);
@@ -39,7 +39,7 @@ const Chatbot = ({ setModalTriggered }) => {
     // llmRecommendations is a list of product_id recommended
     // @TODO - Fetch and Add those in products list
 
-    // @TODO - Call Kenneth's API 
+    // @TODO - Call Kenneth's API
 
     const outfits = await Promise.all(
       outfitPrompts.map((prompt, idx) =>
@@ -57,7 +57,14 @@ const Chatbot = ({ setModalTriggered }) => {
     setLoading(false);
 
     // if (data.success) {
-    setChat((prev) => [...prev, { sender: "ai", message: "GG" }]);
+    setChat((prev) => [
+      ...prev,
+      {
+        sender: "ai",
+        message:
+          "Sure! based on the given context, here are some outfits personally recommended for you.",
+      },
+    ]);
     if (outfits.length) {
       setImagesObj(outfits);
     }

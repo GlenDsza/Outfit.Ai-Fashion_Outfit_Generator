@@ -32,7 +32,7 @@ const Product = (props) => {
   };
 
   const handleLinkClick = async () => {
-    var res = await axios.put(`/api/v1/product/${_id}`);
+    await axios.put(`/api/v1/product/${_id}`);
   };
 
   return (
