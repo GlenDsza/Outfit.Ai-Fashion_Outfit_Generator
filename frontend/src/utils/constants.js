@@ -5,8 +5,8 @@ export const categories = [
   "Men's Fashion",
   "Women's Fashion",
   "Kid's Fashion",
+  "Unisex Fashion",
   "Accessories",
-  "Home",
   "Appliances",
   "Beauty,Toys & More",
 ];

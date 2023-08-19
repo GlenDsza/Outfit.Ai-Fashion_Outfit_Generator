@@ -74,7 +74,7 @@ const Products = () => {
     <>
       <MetaData title="All Products | Flipkart" />
 
-      <MinCategory />
+      <MinCategory setCategory={setCategory} />
       <main className="w-full mt-14 sm:mt-0">
         {/* <!-- row --> */}
         <div className="flex gap-3 mt-2 sm:mt-2 sm:mx-3 m-auto mb-7">
@@ -144,7 +144,17 @@ const Products = () => {
                         >
                           {categories.map((el, i) => (
                             <FormControlLabel
-                              value={el}
+                              value={
+                                el === "Men's Fashion"
+                                  ? "Menswear"
+                                  : el === "Women's Fashion"
+                                  ? "Womenswear"
+                                  : el === "Unisex Fashion"
+                                  ? "General"
+                                  : el === "Kid's Fashion"
+                                  ? "Baby/Children"
+                                  : el
+                              }
                               control={<Radio size="small" />}
                               label={
                                 <span className="text-sm" key={i}>

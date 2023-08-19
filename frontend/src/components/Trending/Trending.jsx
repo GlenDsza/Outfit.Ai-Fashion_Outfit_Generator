@@ -40,7 +40,16 @@ const Trending = () => {
           <p className="text-xl font-medium px-10 pb-2">
             {category === "all"
               ? "Trending Products"
-              : "Trending in " + category}{" "}
+              : "Trending in " +
+                (category === "Menswear"
+                  ? "Men's Fashion"
+                  : category === "Womenswear"
+                  ? "Women's Fashion"
+                  : category === "General"
+                  ? "Unisex Fashion"
+                  : category === "Baby/Children"
+                  ? "Kid's Fashion"
+                  : category)}{" "}
             <span className="text-lg font-extralight">(last 7 days)</span>{" "}
           </p>
 
@@ -50,14 +59,14 @@ const Trending = () => {
         {/* <!-- row --> */}
         <div className="flex gap-3 mt-2 sm:mt-2 sm:mx-3 m-auto mb-7">
           {/* <!-- sidebar column  --> */}
-          <div className="hidden sm:flex flex-col w-1/5 px-1">
+          <div className="hidden sm:flex flex-col w-1/4">
             {/* <!-- nav tiles --> */}
-            <div className="flex flex-col bg-white rounded-sm shadow">
+            <div className="flex flex-col bg-white rounded-md shadow ml-4">
               {/* <!-- filters header --> */}
               <div className="flex items-center justify-between gap-5 px-4 py-2 border-b">
                 <p className="text-lg font-medium">Categories</p>
               </div>
-              <div className="flex flex-col pb-1 pl-3 ">
+              <div className="flex flex-col pl-4 pb-3 ">
                 <FormControl>
                   <RadioGroup
                     aria-labelledby="category-radio-buttons-group"
@@ -76,7 +85,17 @@ const Trending = () => {
                     />
                     {categories.map((el, i) => (
                       <FormControlLabel
-                        value={el}
+                        value={
+                          el === "Men's Fashion"
+                            ? "Menswear"
+                            : el === "Women's Fashion"
+                            ? "Womenswear"
+                            : el === "Unisex Fashion"
+                            ? "General"
+                            : el === "Kid's Fashion"
+                            ? "Baby/Children"
+                            : el
+                        }
                         control={<Radio size="small" />}
                         label={
                           <span className="text-sm" key={i}>

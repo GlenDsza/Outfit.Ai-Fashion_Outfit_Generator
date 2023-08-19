@@ -132,7 +132,20 @@ const MainData = () => {
         backgroundColor: "#9333ea",
         hoverBackgroundColor: "#6b21a8",
         data: categories.map(
-          (cat) => products?.filter((item) => item.category === cat).length
+          (cat) =>
+            products?.filter(
+              (item) =>
+                item.category ===
+                (cat === "Men's Fashion"
+                  ? "Menswear"
+                  : cat === "Women's Fashion"
+                  ? "Womenswear"
+                  : cat === "Unisex Fashion"
+                  ? "General"
+                  : cat === "Kid's Fashion"
+                  ? "Baby/Children"
+                  : cat)
+            ).length
         ),
       },
     ],

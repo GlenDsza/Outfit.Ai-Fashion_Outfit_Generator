@@ -3,7 +3,7 @@ import mens from "../../assets/images/Categories/mens.png";
 import women from "../../assets/images/Categories/women.png";
 import kids from "../../assets/images/Categories/kids.png";
 import electronics from "../../assets/images/Categories/electronics.png";
-import home from "../../assets/images/Categories/home.png";
+import unisex from "../../assets/images/Categories/unisex.png";
 import appliances from "../../assets/images/Categories/appliances.png";
 import beauty from "../../assets/images/Categories/beauty.png";
 import accessories from "../../assets/images/Categories/accessories.png";
@@ -23,6 +23,10 @@ const catNav = [
     icon: kids,
   },
   {
+    name: "Unisex Fashion",
+    icon: unisex,
+  },
+  {
     name: "Accessories",
     icon: accessories,
   },
@@ -33,10 +37,6 @@ const catNav = [
   {
     name: "Electronics",
     icon: electronics,
-  },
-  {
-    name: "Home",
-    icon: home,
   },
   {
     name: "Appliances",
