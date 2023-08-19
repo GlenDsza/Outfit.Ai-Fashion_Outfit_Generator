@@ -5,6 +5,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
+    "noEmit": true,
     "allowImportingTsExtensions": true
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts"]

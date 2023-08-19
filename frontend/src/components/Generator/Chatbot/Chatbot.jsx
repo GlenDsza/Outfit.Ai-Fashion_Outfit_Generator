@@ -14,61 +14,47 @@ const Chatbot = () => {
   const [imagesObj, setImagesObj] = useState([]);
 
   const sendMessage = async (newMessage) => {
+    const userMessage = newMessage.message;
     await Promise.resolve(setChat((prev) => [...prev, newMessage]));
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    // var dataToSend = JSON.stringify({
-    //   message: newMessage.message,
-    // });
     setLoading(true);
+    setImagesObj([]);
+    
     // const { data } = await axios.post(
     //   "/api/v1/generator/respond",
     //   dataToSend,
     //   config
     // );
 
-    const [outfitPrompts, llmRecommendations] = await Promise.all([
-      getOutfitPrompts(newMessage.message),
-      getLlmRecommendations(newMessage.message),
+    const [outfits, llmRecommendations] = await Promise.all([
+      getOutfitPrompts(userMessage),
+      getLlmRecommendations(userMessage),
     ]);
-    console.log({ outfitPrompts, llmRecommendations });
+    console.log("LLM responses", { outfitPrompts: outfits, llmRecommendations });
+
+    setChat((prev) => [...prev, { sender: "ai", message: outfits.answer }]);
 
     // llmRecommendations is a list of product_id recommended
     // @TODO - Fetch and Add those in products list
 
     // @TODO - Call Kenneth's API
 
-    const outfits = await Promise.all(
-      outfitPrompts.map((prompt, idx) =>
-        generateOutfit(prompt, `Outfit ${idx + 1}`)
+    const generatedOutfits = await Promise.all(
+      outfits.outfit_descriptions.map((prompt, idx) =>
+        generateOutfit(userMessage, prompt, `Outfit ${idx + 1}`)
       )
     );
-    // const outfits = [];
 
     console.log({
-      outfitPrompts,
-      llmRecommendations,
       outfits,
+      llmRecommendations,
+      generatedOutfits,
     });
 
     setLoading(false);
 
-    // if (data.success) {
-    setChat((prev) => [
-      ...prev,
-      {
-        sender: "ai",
-        message:
-          "Sure! based on the given context, here are some outfits personally recommended for you.",
-      },
-    ]);
-    if (outfits.length) {
-      setImagesObj(outfits);
+    if (generatedOutfits.length) {
+      setImagesObj(generatedOutfits);
     }
-    // }
   };
 
   return (
