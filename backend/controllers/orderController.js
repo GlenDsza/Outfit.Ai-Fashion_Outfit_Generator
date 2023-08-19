@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/errorHandler");
 
 // Create New Order
 exports.newOrder = asyncErrorHandler(async (req, res, next) => {
-  const { shippingInfo, orderItems, paymentInfo, totalPrice } = req.body;
+  const { shippingInfo, products, paymentInfo } = req.body;
   const userId = req.user._id;
   const orderExist = await Order.findOne({ paymentInfo });
 
@@ -14,48 +14,38 @@ exports.newOrder = asyncErrorHandler(async (req, res, next) => {
     return next(new ErrorHandler("Order Already Placed", 400));
   }
 
-  const order = await Order.create({
-    shippingInfo,
-    orderItems,
-    paymentInfo,
-    totalPrice,
-    paidAt: Date.now(),
-    user: req.user._id,
-  });
-
   const user = await User.findById(userId);
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
 
-  orderItems.map(async (order) => {
+  products.map(async (prod) => {
+    var order = await Order.create({
+      shippingInfo,
+      product: {
+        article_id: prod.article_id,
+        quantity: prod.quantity,
+        price: prod.price,
+      },
+      paymentInfo,
+      paidAt: Date.now(),
+      user: user.customer_id,
+    });
     if (
-      !user.pastPurchases.some((item) => item.product.equals(order.product))
+      !user.pastPurchases.some(
+        (item) => item.article_id === order.product.article_id
+      )
     ) {
-      user.pastPurchases.push({ product: order.product });
+      user.pastPurchases.push({
+        article_id: order.product.article_id,
+        purchaseDate: Date.now(),
+      });
       await user.save();
+      await updateStock(order.product.article_id, order.product.quantity);
     }
   });
-
-  // await sendEmail({
-  //   email: req.user.email,
-  //   templateId: process.env.SENDGRID_ORDER_TEMPLATEID,
-  //   data: {
-  //     name: req.user.name,
-  //     shippingInfo,
-  //     orderItems,
-  //     totalPrice,
-  //     oid: order._id,
-  //   },
-  // });
-
-  order.orderItems.forEach(async (i) => {
-    await updateStock(i.product, i.quantity);
-  });
-
   res.status(201).json({
     success: true,
-    order,
   });
 });
 
@@ -78,12 +68,11 @@ exports.getSingleOrderDetails = asyncErrorHandler(async (req, res, next) => {
 
 // Get Logged In User Orders
 exports.myOrders = asyncErrorHandler(async (req, res, next) => {
-  const orders = await Order.find({ user: req.user._id });
-
+  const user = await User.findById(req.user._id);
+  const orders = await Order.find({ user: user.customer_id });
   if (!orders) {
     return next(new ErrorHandler("Order Not Found", 404));
   }
-
   res.status(200).json({
     success: true,
     orders,
@@ -142,7 +131,7 @@ exports.updateOrder = asyncErrorHandler(async (req, res, next) => {
 });
 
 async function updateStock(id, quantity) {
-  const product = await Product.findById(id);
+  const product = await Product.findOne({ article_id: id });
   product.stock -= quantity;
   const today = new Date().toDateString();
   const existingEntry = product.purchases.find(

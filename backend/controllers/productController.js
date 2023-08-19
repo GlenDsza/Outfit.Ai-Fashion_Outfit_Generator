@@ -1,9 +1,12 @@
-const Product = require("../models/productModel");
+const cloudinary = require("cloudinary");
+
 const asyncErrorHandler = require("../middlewares/asyncErrorHandler");
 const SearchFeatures = require("../utils/searchFeatures");
 const ErrorHandler = require("../utils/errorHandler");
-const cloudinary = require("cloudinary");
+
 const User = require("../models/userModel");
+const Order = require("../models/orderModel");
+const Product = require("../models/productModel");
 
 // Get All Products
 exports.getAllProducts = asyncErrorHandler(async (req, res, next) => {
@@ -343,44 +346,81 @@ exports.deleteReview = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.getTrendingProducts = asyncErrorHandler(async (req, res, next) => {
-  const lastWeek = new Date();
-  lastWeek.setDate(lastWeek.getDate() - 7);
-  const trendingProducts = await Product.aggregate([
-    {
-      $match: {
-        "purchases.date": { $gte: lastWeek },
+  try {
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+
+    // Aggregate orders based on purchases in the last 7 days
+    const trendingProducts = await Order.aggregate([
+      {
+        $match: {
+          paidAt: { $gte: lastWeek },
+        },
       },
-    },
-    {
-      $group: {
-        _id: "$category",
-        products: {
-          $push: {
-            info: "$$ROOT",
-            totalPurchases: { $sum: "$purchases.count" },
+      {
+        $group: {
+          _id: "$product.article_id",
+          totalPurchases: { $sum: "$product.quantity" },
+        },
+      },
+      {
+        $sort: { totalPurchases: -1 },
+      },
+    ]);
+
+    // Map the trending product IDs
+    const trendingProductIds = trendingProducts.map((product) => product._id);
+
+    // Group trending products by category and limit to 12 products per category
+    const trendingProductsByCategory = await Product.aggregate([
+      {
+        $match: {
+          article_id: { $in: trendingProductIds },
+        },
+      },
+      {
+        $group: {
+          _id: "$category",
+          products: {
+            $push: {
+              info: "$$ROOT",
+              totalPurchases: {
+                $sum: {
+                  $cond: [
+                    {
+                      $in: ["$$ROOT.article_id", trendingProductIds],
+                    },
+                    "$$ROOT.stock", // Count the stock of the trending product
+                    0, // Don't count if not trending
+                  ],
+                },
+              },
+            },
           },
         },
       },
-    },
-    {
-      $project: {
-        category: "$_id",
-        products: 1,
-        _id: 0,
+      {
+        $project: {
+          category: "$_id",
+          products: {
+            $slice: ["$products", 12], // Limit each category to 12 products
+          },
+          _id: 0,
+        },
       },
-    },
-    {
-      $sort: { "products.totalPurchases": -1 },
-    },
-    {
-      $limit: 12,
-    },
-  ]);
-
-  res.status(200).json({
-    success: true,
-    trendingProducts,
-  });
+    ]);
+    console.log(trendingProductsByCategory);
+    res.status(200).json({
+      success: true,
+      trendingProducts: trendingProductsByCategory,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      error: "Server error",
+    });
+  }
 });
 
 exports.addToWishlist = asyncErrorHandler(async (req, res, next) => {
@@ -398,8 +438,8 @@ exports.addToWishlist = asyncErrorHandler(async (req, res, next) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    if (!user.wishlist.some((item) => item.product.equals(productId))) {
-      user.wishlist.push({ product: productId });
+    if (!user.wishlist.some((item) => item.article_id == product.article_id)) {
+      user.wishlist.push({ article_id: product.article_id });
       await user.save();
     }
 
@@ -427,12 +467,10 @@ exports.addToCart = asyncErrorHandler(async (req, res, next) => {
     if (!product) {
       return res.status(404).json({ error: "Product not found" });
     }
-
-    if (!user.cart.some((item) => item.product.equals(productId))) {
-      user.cart.push({ product: productId });
+    if (!user.cart.some((item) => item?.article_id == product.article_id)) {
+      user.cart.push({ article_id: product.article_id });
       await user.save();
     }
-
     res.status(200).json({
       success: true,
       product,

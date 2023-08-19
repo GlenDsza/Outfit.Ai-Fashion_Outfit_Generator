@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
+  customer_id: {
+    type: String,
+    required: [true, "Please Enter Your Customer_id"],
+  },
   name: {
     type: String,
     required: [true, "Please Enter Your Name"],
@@ -38,9 +42,8 @@ const userSchema = new mongoose.Schema({
   },
   pastPurchases: [
     {
-      product: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
+      article_id: {
+        type: String,
         required: true,
       },
       purchaseDate: {
@@ -51,18 +54,16 @@ const userSchema = new mongoose.Schema({
   ],
   wishlist: [
     {
-      product: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
+      article_id: {
+        type: String,
         required: true,
       },
     },
   ],
   cart: [
     {
-      product: {
-        type: mongoose.Schema.ObjectId,
-        ref: "Product",
+      article_id: {
+        type: String,
         required: true,
       },
     },

@@ -49,7 +49,7 @@ const Shipping = () => {
         <div className="flex flex-col sm:flex-row gap-3.5 w-full sm:w-11/12 mt-0 sm:mt-4 m-auto sm:mb-7 overflow-hidden">
           {/* <!-- cart column --> */}
           <div className="flex-1">
-            <Stepper activeStep={1}>
+            <Stepper activeStep={1} key={123}>
               <div className="w-full bg-white">
                 <form
                   onSubmit={shippingSubmit}

@@ -234,7 +234,7 @@ const NewProduct = () => {
                     el === "Men's Fashion"
                       ? "Menswear"
                       : el === "Women's Fashion"
-                      ? "Womenswear"
+                      ? "Ladieswear"
                       : el === "Unisex Fashion"
                       ? "General"
                       : el === "Kid's Fashion"

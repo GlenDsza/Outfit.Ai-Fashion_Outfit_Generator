@@ -27,9 +27,22 @@ const Products = () => {
   const location = useLocation();
 
   const [price, setPrice] = useState([0, 200000]);
+  var catVal = location.search
+    ? decodeURIComponent(location.search.split("=")[1])
+    : "";
+
   const [category, setCategory] = useState(
-    location.search ? location.search.split("=")[1] : ""
+    catVal === "Men's Fashion"
+      ? "Menswear"
+      : catVal === "Women's Fashion"
+      ? "Ladieswear"
+      : catVal === "Unisex Fashion"
+      ? "General"
+      : catVal === "Kid's Fashion"
+      ? "Baby/Children"
+      : catVal
   );
+
   const [ratings, setRatings] = useState(0);
 
   // pagination
@@ -148,7 +161,7 @@ const Products = () => {
                                 el === "Men's Fashion"
                                   ? "Menswear"
                                   : el === "Women's Fashion"
-                                  ? "Womenswear"
+                                  ? "Ladieswear"
                                   : el === "Unisex Fashion"
                                   ? "General"
                                   : el === "Kid's Fashion"
@@ -222,7 +235,7 @@ const Products = () => {
           {/* <!-- sidebar column  --> */}
 
           {/* <!-- search column --> */}
-          <div className="flex-1">
+          <div className="flex-1 mr-2">
             {!loading && products?.length === 0 && <NoProduct />}
 
             {loading ? (

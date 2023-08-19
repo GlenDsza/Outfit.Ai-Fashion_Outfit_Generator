@@ -71,13 +71,30 @@ const ProductDetails = () => {
     prevArrow: <PreviousBtn />,
     nextArrow: <NextBtn />,
   };
-
   const productId = params.id;
+  useEffect(() => {
+    if (error) {
+      enqueueSnackbar(error, { variant: "error" });
+      dispatch(clearErrors());
+    }
+    if (reviewError) {
+      enqueueSnackbar(reviewError, { variant: "error" });
+      dispatch(clearErrors());
+    }
+    if (success) {
+      enqueueSnackbar("Review Submitted Successfully", { variant: "success" });
+      dispatch({ type: NEW_REVIEW_RESET });
+    }
+    dispatch(getProductDetails(productId));
+    dispatch(myOrders());
+    // eslint-disable-next-line
+  }, [dispatch, productId, error, reviewError, success, enqueueSnackbar]);
+
   const itemInWishlist = wishlistItems.some((i) => i.product === productId);
   const isItemInOrders = useMemo(() => {
     if (!orders) return false;
-    return orders.some((i) =>
-      i.orderItems.some((order) => order.product === productId)
+    return orders.some(
+      (order) => order.product.article_id === product.article_id
     );
   }, [orders, productId]);
 
@@ -130,26 +147,8 @@ const ProductDetails = () => {
   };
 
   useEffect(() => {
-    if (error) {
-      enqueueSnackbar(error, { variant: "error" });
-      dispatch(clearErrors());
-    }
-    if (reviewError) {
-      enqueueSnackbar(reviewError, { variant: "error" });
-      dispatch(clearErrors());
-    }
-    if (success) {
-      enqueueSnackbar("Review Submitted Successfully", { variant: "success" });
-      dispatch({ type: NEW_REVIEW_RESET });
-    }
-    dispatch(getProductDetails(productId));
-    dispatch(myOrders());
-    // eslint-disable-next-line
-  }, [dispatch, productId, error, reviewError, success, enqueueSnackbar]);
-
-  useEffect(() => {
     dispatch(getSimilarProducts(product?.category));
-  }, [dispatch, product, product.category]);
+  }, [dispatch, product, product?.category]);
 
   return (
     <>

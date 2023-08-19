@@ -16,6 +16,7 @@ export const addItemsToCart =
       type: ADD_TO_CART,
       payload: {
         product: data.product._id,
+        article_id: data.product.article_id,
         name: data.product.name,
         seller: data.product.brand.name,
         price: data.product.price,

@@ -43,15 +43,10 @@ const MyOrders = () => {
 
   useEffect(() => {
     setSearch("");
-    // console.log(status);
-    // console.log(typeof orderTime);
-    // console.log(orderTime);
-
     if (!status && +orderTime === 0) {
       setFilteredOrders(orders);
       return;
     }
-
     if (status && orderTime) {
       if (+orderTime === dt.getMonth()) {
         const filteredArr = orders.filter(
@@ -108,7 +103,6 @@ const MyOrders = () => {
     setStatus("");
     setOrderTime(0);
   };
-
   return (
     <>
       <MetaData title="My Orders | Flipkart" />
@@ -225,7 +219,7 @@ const MyOrders = () => {
                 </form>
                 {/* <!-- searchbar --> */}
 
-                {orders && filteredOrders.length === 0 && (
+                {orders && filteredOrders?.length === 0 && (
                   <div className="flex items-center flex-col gap-2 p-8 bg-white">
                     <img
                       draggable="false"
@@ -241,26 +235,16 @@ const MyOrders = () => {
 
                 {orders &&
                   filteredOrders
-                    .map((order) => {
-                      const {
-                        _id,
-                        orderStatus,
-                        orderItems,
-                        createdAt,
-                        deliveredAt,
-                      } = order;
-
-                      return orderItems.map((item, index) => (
-                        <OrderItem
-                          {...item}
-                          key={index}
-                          orderId={_id}
-                          orderStatus={orderStatus}
-                          createdAt={createdAt}
-                          deliveredAt={deliveredAt}
-                        />
-                      ));
-                    })
+                    .map((order, index) => (
+                      <OrderItem
+                        {...order}
+                        key={index}
+                        orderId={order._id}
+                        orderStatus={order.orderStatus}
+                        createdAt={order.createdAt}
+                        deliveredAt={order.deliveredAt}
+                      />
+                    ))
                     .reverse()}
               </div>
             )}

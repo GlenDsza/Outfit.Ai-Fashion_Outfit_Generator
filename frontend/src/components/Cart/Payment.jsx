@@ -33,73 +33,26 @@ const Payment = () => {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { error } = useSelector((state) => state.newOrder);
-
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-
-  // const paymentData = {
-  //   amount: Math.round(totalPrice),
-  //   email: user.email,
-  //   phoneNo: shippingInfo.phoneNo,
-  // };
-
-  const order = {
+  var order = {
     shippingInfo,
-    orderItems: cartItems,
-    totalPrice,
+    products: [],
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
-    // paymentBtn.current.disabled = true;
     setPayDisable(true);
-
     try {
-      //   const config = {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //   };
-      //   const { data } = await axios.post(
-      //     "/api/v1/payment/process",
-      //     paymentData,
-      //     config
-      //   );
-
-      //   let info = {
-      //     action: "https://securegw-stage.paytm.in/order/process",
-      //     params: data.paytmParams,
-      //   };
-
-      //   post(info);
-
-      // if (!stripe || !elements) return;
-
-      // const result = await stripe.confirmCardPayment(client_secret, {
-      //     payment_method: {
-      //         card: elements.getElement(CardNumberElement),
-      //         billing_details: {
-      //             name: user.name,
-      //             email: user.email,
-      //             address: {
-      //                 line1: shippingInfo.address,
-      //                 city: shippingInfo.city,
-      //                 country: shippingInfo.country,
-      //                 state: shippingInfo.state,
-      //                 postal_code: shippingInfo.pincode,
-      //             },
-      //         },
-      //     },
-      // });
-
-      // if (result.error) {
-      //     paymentBtn.current.disabled = false;
-      //     enqueueSnackbar(result.error.message, { variant: "error" });
-      // } else {
-      //     if (result.paymentIntent.status === "succeeded") {
+      cartItems.map((item) =>
+        order.products.push({
+          article_id: item.article_id,
+          quantity: item.quantity,
+          price: item.price,
+        })
+      );
 
       order.paymentInfo = {
         id: Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000,
@@ -107,16 +60,10 @@ const Payment = () => {
       };
 
       dispatch(newOrder(order));
-      dispatch(emptyCart());
-      // await dispatch(updateOrder(order._id, order));
 
+      dispatch(emptyCart());
       navigate("/orders/success");
-      //     } else {
-      //         enqueueSnackbar("Processing Payment Failed!", { variant: "error" });
-      //     }
-      // }
     } catch (error) {
-      // paymentBtn.current.disabled = false;
       setPayDisable(false);
       enqueueSnackbar(error, { variant: "error" });
     }

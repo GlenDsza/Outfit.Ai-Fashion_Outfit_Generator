@@ -139,7 +139,7 @@ const MainData = () => {
                 (cat === "Men's Fashion"
                   ? "Menswear"
                   : cat === "Women's Fashion"
-                  ? "Womenswear"
+                  ? "Ladieswear"
                   : cat === "Unisex Fashion"
                   ? "General"
                   : cat === "Kid's Fashion"

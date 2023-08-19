@@ -43,7 +43,7 @@ const Trending = () => {
               : "Trending in " +
                 (category === "Menswear"
                   ? "Men's Fashion"
-                  : category === "Womenswear"
+                  : category === "Ladieswear"
                   ? "Women's Fashion"
                   : category === "General"
                   ? "Unisex Fashion"
@@ -89,7 +89,7 @@ const Trending = () => {
                           el === "Men's Fashion"
                             ? "Menswear"
                             : el === "Women's Fashion"
-                            ? "Womenswear"
+                            ? "Ladieswear"
                             : el === "Unisex Fashion"
                             ? "General"
                             : el === "Kid's Fashion"
