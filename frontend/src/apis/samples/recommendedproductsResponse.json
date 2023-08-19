@@ -1,0 +1,39 @@
+{
+  "product_ids": { "0": "0843145", "1": "0203027" },
+  "article_ids": { "0": "0843145001", "1": "0203027045" },
+  "products_data": [
+    {
+      "Article ID": "0843145001",
+      "Product name": "2P Tanktop Romper",
+      "Product code": "0843145",
+      "Product type": "Jumpsuit/Playsuit",
+      "Product group": "Garment Full body",
+      "Graphical appearance": "All over pattern",
+      "Colour group": "Grey",
+      "Perceived colour": "Dusty Light",
+      "Primary Perceived colour": "Grey",
+      "Department": "Baby basics",
+      "Index group": "Baby/Children",
+      "Section": "Baby Essentials & Complements",
+      "Garment group": "Jersey Basic",
+      "Detail description": "Sleeveless romper suits in soft, organic cotton jersey with a kangaroo pocket, short legs and press-studs at the crotch. One with an all-over print."
+    },
+    {
+      "Article ID": "0203027045",
+      "Product name": "Linni tee (1)",
+      "Product code": "0203027",
+      "Product type": "T-shirt",
+      "Product group": "Garment Upper body",
+      "Graphical appearance": "Solid",
+      "Colour group": "Off White",
+      "Perceived colour": "Dusty Light",
+      "Primary Perceived colour": "White",
+      "Department": "Basic 1",
+      "Index group": "Divided",
+      "Section": "Divided Basics",
+      "Garment group": "Jersey Basic",
+      "Detail description": "Short-sleeved top in jersey with sewn-in turn-ups on the sleeves."
+    }
+  ],
+  "answer": "  Sure! Based on the given context, here are the top 20-30 unique product IDs that could be suitable for a summer outfit for women, ranked by their relevance:\n\nProducts: [0843145001, 0203027045]"
+}

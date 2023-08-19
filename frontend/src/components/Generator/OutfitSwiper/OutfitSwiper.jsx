@@ -41,6 +41,7 @@ const OutfitSwiper = ({ imagesObj, setTitle }) => {
               <img
                 className="rounded-md"
                 src={`data:image/png;base64,${image.imageString}`}
+                // src={image.imageString}
                 alt={i}
               />
             </SwiperSlide>
