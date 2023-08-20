@@ -175,10 +175,19 @@ export const addPersonalizedProducts =
       var personalizedProducts =
         getState().personalizedProducts.personalizedProducts;
       dispatch({ type: PERSONALIZED_PRODUCTS_REQUEST });
-      articles.map(async (aid) => {
+      const existingProductIds = new Set(
+        personalizedProducts.map((product) => product._id)
+      );
+
+      for (const aid of articles) {
         const { data } = await axios.get(`/api/v1/productByAid/${aid}`);
-        personalizedProducts.unshift(data.product);
-      });
+        const productToAdd = data.product;
+
+        if (!existingProductIds.has(productToAdd._id)) {
+          personalizedProducts.unshift(productToAdd);
+          existingProductIds.add(productToAdd._id);
+        }
+      }
 
       dispatch({
         type: PERSONALIZED_PRODUCTS_SUCCESS,

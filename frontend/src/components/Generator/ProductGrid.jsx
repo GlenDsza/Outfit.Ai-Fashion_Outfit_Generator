@@ -39,12 +39,11 @@ const ProductGrid = () => {
 
   return (
     <div className="flex flex-col gap-1 pb-4 justify-center items-center w-full overflow-hidden bg-white rounded-md">
-      <div className="fs-4 fw-bold my-1">Personlaized Products</div>
+      <div className="fs-4 fw-bold my-1">Personalized Products</div>
       <hr className="w-full bg-grey" />
       <div className="grid grid-cols-1 sm:grid-cols-3 w-full place-content-start overflow-hidden pb-4 border-b ">
         {!personalizedProductsLoading &&
           personalizedProducts?.map((prod) => {
-            console.log(prod._id);
             return <Product {...prod} key={prod._id} />;
           })}
         {!loading &&

@@ -204,3 +204,21 @@ export const offerProducts = [
     tag: "Buy Now!",
   },
 ];
+
+export const questions = [
+  [
+    "To provide you with the best fashion recommendations, could you please let me know your gender or the gender you're shopping for? We offer a wide range of styles for everyone.",
+    "For personalized fashion recommendations, could you share your gender or the gender you're shopping for? Our styles cater to everyone.",
+    "To offer you the best fashion recommendations, could you kindly specify your gender or the gender you're shopping for? Our styles are diverse to suit everyone's taste.",
+  ],
+  [
+    "Knowing your age might help us suggest outfits that match your age and style preferences.",
+    "Understanding your age can help us suggest outfits that suit your age and style preferences. May we know your age?",
+    "Knowing your age can assist us in suggesting outfits that align with your age group and style preferences. May we ask for your age?",
+  ],
+  [
+    "Please describe what kind of outfit you want to wear? Are there any specific occasions or events you're shopping for?",
+    "Could you describe the type of outfit you're looking for or any specific occasions you're shopping for? Your input will help us provide tailored suggestions.",
+    "Can you provide some details about the type of outfit you have in mind or any specific occasions you're shopping for? Your input will enable us to give you personalized suggestions.",
+  ],
+];
