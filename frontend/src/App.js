@@ -102,19 +102,21 @@ function App() {
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
   // });
-    const navigator = useNavigate();
-    const location = useLocation();
+  const navigator = useNavigate();
+  const location = useLocation();
   return (
     <>
       <Header />
-        {
-            location.pathname == "/ai-outfit-generator" ?null :<Fab style={styles.fabio}  onClick={ () => navigator("/ai-outfit-generator") }>
-
-                <AdbIcon sx={{ fontSize: 50 }} />
-
-            </Fab>
-        }
-
+      {location.pathname == "/ai-outfit-generator" ? null : (
+        <Fab
+          style={styles.fabio}
+          className="shadow-2xl"
+          onClick={() => navigator("/ai-outfit-generator")}
+        >
+          {/* <AdbIcon sx={{ fontSize: 40 }} /> */}
+          <img src="./chatbot.png" alt="bot" width={40} height={40} />
+        </Fab>
+      )}
 
       <Routes>
         <Route path="/" element={<Home />} />
@@ -327,15 +329,15 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
-          <Route
-              path="/admin/FashionTrends"
-              element={
-                <ProtectedRoute isAdmin={true}>
-                  <Dashboard activeTab={7}>
-                    <FashionTrends />
-                  </Dashboard>
-                </ProtectedRoute>
-              }
+        <Route
+          path="/admin/FashionTrends"
+          element={
+            <ProtectedRoute isAdmin={true}>
+              <Dashboard activeTab={7}>
+                <FashionTrends />
+              </Dashboard>
+            </ProtectedRoute>
+          }
         ></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
@@ -345,17 +347,16 @@ function App() {
   );
 }
 
-const styles =   {
-        fabio:
-            {
-                background: '#1a232e',
-                color: '#ffffff',
-                position: 'fixed',
-                top:'80vh',
-                left:'90vw',
-                height:'10vh',
-                width:'10vh',
-            },
-    }
+const styles = {
+  fabio: {
+    background: "#f2ad2d",
+    color: "#1a232e",
+    position: "fixed",
+    top: "85vh",
+    left: "92vw",
+    height: "10vh",
+    width: "10vh",
+  },
+};
 
 export default App;

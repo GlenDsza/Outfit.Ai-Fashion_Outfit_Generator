@@ -19,7 +19,7 @@ const ChatMessage = ({ message, setModalTriggered }) => {
             <img
               src="./bot.png"
               alt="chatbot"
-              className="w-7 h-7 rounded-full mt-2 mr-2"
+              className="w-8 h-8 rounded-full mt-2 mr-2"
             />
           )}
 

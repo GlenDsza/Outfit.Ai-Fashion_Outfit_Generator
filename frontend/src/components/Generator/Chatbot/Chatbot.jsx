@@ -72,7 +72,16 @@ const Chatbot = () => {
   };
 
   const uploadImage = async (url) => {
-    setChat((prev) => [...prev, { sender: "ai", message: "", images: [url] }]);
+    // Image not visible properly
+    // setChat((prev) => [...prev, { sender: "ai", message: "", images: [url] }]);
+    dispatch(
+      addPersonalizedProducts([
+        "0607350001",
+        "0479294002",
+        "1000000010",
+        "0681963001",
+      ])
+    );
   };
 
   const sendMessage = async (newMessage) => {

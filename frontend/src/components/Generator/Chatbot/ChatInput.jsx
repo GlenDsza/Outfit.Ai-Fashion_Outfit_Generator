@@ -18,13 +18,16 @@ const ChatInput = ({ sendMessage, loading, uploadImage }) => {
     uploadRef.current.click();
   };
 
-  // uploadRef.current.addEventListener("change", (event) => {
-  //   const selectedFile = event.target.files[0];
-  //   if (selectedFile) {
-  //     const imageUrl = URL.createObjectURL(selectedFile);
-
-  //   }
-  // });
+  if (uploadRef.current !== null) {
+    uploadRef.current.addEventListener("change", (event) => {
+      const selectedFile = event.target.files[0];
+      if (selectedFile) {
+        console.log("hi");
+        const imageUrl = URL.createObjectURL(selectedFile);
+        uploadImage(imageUrl);
+      }
+    });
+  }
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
