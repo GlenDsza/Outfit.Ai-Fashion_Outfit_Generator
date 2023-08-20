@@ -9,7 +9,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { categories } from "../../utils/constants";
+import { catForGrid } from "../../utils/constants";
 import { useParams } from "react-router-dom";
 import NoProduct from "../Products/NoProduct";
 import Loader from "../Layouts/Loader";
@@ -83,7 +83,7 @@ const Trending = () => {
                         </span>
                       }
                     />
-                    {categories.map((el, i) => (
+                    {catForGrid.map((el, i) => (
                       <FormControlLabel
                         value={
                           el === "Men's Fashion"

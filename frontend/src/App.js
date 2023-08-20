@@ -38,6 +38,29 @@ import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
 import Trending from "./components/Trending/Trending";
 import Chatbot from "./components/Generator/Generator";
+import { Fab } from "@mui/material";
+import AdbIcon from "@mui/icons-material/Adb";
+import {
+  Chart as ChartJS,
+  PointElement,
+  LineElement,
+  ArcElement,
+  BarElement,
+  Tooltip,
+  Legend,
+  CategoryScale,
+  LinearScale,
+} from "chart.js";
+ChartJS.register(
+  Tooltip,
+  Legend,
+  ArcElement,
+  BarElement,
+  LineElement,
+  PointElement,
+  CategoryScale,
+  LinearScale
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -295,6 +318,9 @@ function App() {
         ></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
+      <Fab color="primary">
+        <AdbIcon sx={{ fontSize: 35 }} />
+      </Fab>
       <Footer />
     </>
   );

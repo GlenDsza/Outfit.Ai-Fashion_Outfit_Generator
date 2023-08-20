@@ -15,7 +15,7 @@ import Product from "./Product";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import StarIcon from "@mui/icons-material/Star";
-import { categories } from "../../utils/constants";
+import { catForGrid } from "../../utils/constants";
 import MetaData from "../Layouts/MetaData";
 import { useLocation } from "react-router-dom";
 import NoProduct from "./NoProduct";
@@ -155,7 +155,7 @@ const Products = () => {
                           name="category-radio-buttons"
                           value={category}
                         >
-                          {categories.map((el, i) => (
+                          {catForGrid.map((el, i) => (
                             <FormControlLabel
                               value={
                                 el === "Men's Fashion"

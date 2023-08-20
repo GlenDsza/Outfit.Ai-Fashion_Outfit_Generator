@@ -11,6 +11,14 @@ export const categories = [
   "Beauty,Toys & More",
 ];
 
+export const catForGrid = [
+  "Men's Fashion",
+  "Women's Fashion",
+  "Kid's Fashion",
+  "Unisex Fashion",
+  "Accessories",
+];
+
 // Product Sliders Offers
 export const offerProducts = [
   {
