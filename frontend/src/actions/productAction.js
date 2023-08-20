@@ -40,6 +40,9 @@ import {
   POPULAR_PRODUCTS_REQUEST,
   POPULAR_PRODUCTS_SUCCESS,
   POPULAR_PRODUCTS_FAIL,
+  PERSONALIZED_PRODUCTS_REQUEST,
+  PERSONALIZED_PRODUCTS_SUCCESS,
+  PERSONALIZED_PRODUCTS_FAIL,
 } from "../constants/productConstants";
 import { RECOMMENDER_API_URL } from "../constants/urls.ts";
 
@@ -165,6 +168,29 @@ export const getSimilarProducts = (category) => async (dispatch) => {
     });
   }
 };
+
+export const addPersonalizedProducts =
+  (articles) => async (dispatch, getState) => {
+    try {
+      var personalizedProducts =
+        getState().personalizedProducts.personalizedProducts;
+      dispatch({ type: PERSONALIZED_PRODUCTS_REQUEST });
+      articles.map(async (aid) => {
+        const { data } = await axios.get(`/api/v1/productByAid/${aid}`);
+        personalizedProducts.unshift(data.product);
+      });
+
+      dispatch({
+        type: PERSONALIZED_PRODUCTS_SUCCESS,
+        payload: personalizedProducts,
+      });
+    } catch (error) {
+      dispatch({
+        type: PERSONALIZED_PRODUCTS_FAIL,
+        payload: error,
+      });
+    }
+  };
 
 // Get Product Details
 export const getProductDetails = (id) => async (dispatch) => {

@@ -5,25 +5,29 @@ import { useSnackbar } from "notistack";
 import {
   clearErrors,
   getRecommendedProducts,
-  getSliderProducts,
 } from "../../actions/productAction";
 
 const ProductGrid = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
-  // const { user } = useSelector((state) => state.user);
-  // const { recommendedProducts, error } = useSelector(
-  //   (state) => state.recommendedProducts
-  // );
 
-  const { user, loading, recommendedProducts, error } = useSelector(
-    (state) => ({
-      loading: state.recommendedProducts.loading,
-      error: state.recommendedProducts.error,
-      recommendedProducts: state.recommendedProducts.recommendedProducts,
-      user: state.user.user,
-    })
-  );
+  const {
+    user,
+    loading,
+    recommendedProducts,
+    personalizedProductsLoading,
+    personalizedProducts,
+    error,
+  } = useSelector((state) => ({
+    loading: state.recommendedProducts.loading,
+    error: state.recommendedProducts.error,
+    recommendedProducts: state.recommendedProducts.recommendedProducts,
+    personalizedProducts: state.personalizedProducts.personalizedProducts,
+    personalizedProductsLoading: state.personalizedProducts.loading,
+    user: state.user.user,
+  }));
+
+  var count = 15 - personalizedProducts?.length;
 
   useEffect(() => {
     if (error) {
@@ -38,8 +42,13 @@ const ProductGrid = () => {
       <div className="fs-4 fw-bold my-1">Personlaized Products</div>
       <hr className="w-full bg-grey" />
       <div className="grid grid-cols-1 sm:grid-cols-3 w-full place-content-start overflow-hidden pb-4 border-b ">
+        {!personalizedProductsLoading &&
+          personalizedProducts?.map((prod) => {
+            console.log(prod._id);
+            return <Product {...prod} key={prod._id} />;
+          })}
         {!loading &&
-          recommendedProducts?.slice(0, 6).map((prod) => {
+          recommendedProducts?.slice(0, count).map((prod) => {
             return <Product {...prod} key={prod._id} />;
           })}
       </div>

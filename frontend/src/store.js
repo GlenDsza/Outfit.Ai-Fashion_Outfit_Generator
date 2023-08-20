@@ -18,6 +18,7 @@ import {
   reviewReducer,
   recommendedProductsReducer,
   popularProductsReducer,
+  personalizedProductsReducer,
 } from "./reducers/productReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import { saveForLaterReducer } from "./reducers/saveForLaterReducer";
@@ -40,6 +41,7 @@ const reducer = combineReducers({
   trendingProducts: trendingProductsReducer,
   recommendedProducts: recommendedProductsReducer,
   popularProducts: popularProductsReducer,
+  personalizedProducts: personalizedProductsReducer,
   productDetails: productDetailsReducer,
   newReview: newReviewReducer,
   cart: cartReducer,

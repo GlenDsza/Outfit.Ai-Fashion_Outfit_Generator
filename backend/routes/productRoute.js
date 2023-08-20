@@ -14,6 +14,7 @@ const {
   addProductImpression,
   addToWishlist,
   addToCart,
+  getProductByAid,
 } = require("../controllers/productController");
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
 
@@ -45,6 +46,7 @@ router
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
 
 router.route("/product/:id").get(getProductDetails).put(addProductImpression);
+router.route("/productByAid/:id").get(getProductByAid);
 
 router.route("/review").put(isAuthenticatedUser, createProductReview);
 

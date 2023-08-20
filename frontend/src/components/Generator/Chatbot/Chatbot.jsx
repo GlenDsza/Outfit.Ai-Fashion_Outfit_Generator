@@ -7,8 +7,13 @@ import {
   getLlmRecommendations,
   getOutfitPrompts,
 } from "../../../apis/genai.ts";
+import { addPersonalizedProducts } from "../../../actions/productAction";
+import { useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
 
 const Chatbot = () => {
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([]);
 
@@ -21,14 +26,10 @@ const Chatbot = () => {
       getOutfitPrompts(userMessage),
       getLlmRecommendations(userMessage),
     ]);
-    console.log("LLM responses", {
-      outfitPrompts: outfits,
-      llmRecommendations,
-    });
 
     setChat((prev) => [
       ...prev,
-      { sender: "ai", message: outfits.answer, images: [] },
+      { sender: "ai", message: outfits.answer.trim(), images: [] },
     ]);
 
     const generatedOutfits = await Promise.all(
@@ -36,6 +37,8 @@ const Chatbot = () => {
         generateOutfit(userMessage, prompt, `Outfit ${idx + 1}`)
       )
     );
+
+    dispatch(addPersonalizedProducts(llmRecommendations.articles));
 
     console.log({
       outfits,

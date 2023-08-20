@@ -42,6 +42,9 @@ import {
   POPULAR_PRODUCTS_REQUEST,
   POPULAR_PRODUCTS_SUCCESS,
   POPULAR_PRODUCTS_FAIL,
+  PERSONALIZED_PRODUCTS_REQUEST,
+  PERSONALIZED_PRODUCTS_SUCCESS,
+  PERSONALIZED_PRODUCTS_FAIL,
 } from "../constants/productConstants";
 
 export const productsReducer = (
@@ -352,6 +355,36 @@ export const popularProductsReducer = (
         popularProducts: payload,
       };
     case POPULAR_PRODUCTS_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const personalizedProductsReducer = (
+  state = { loading: false, personalizedProducts: [] },
+  { type, payload }
+) => {
+  switch (type) {
+    case PERSONALIZED_PRODUCTS_REQUEST:
+      return {
+        loading: true,
+        personalizedProducts: [],
+      };
+    case PERSONALIZED_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        personalizedProducts: payload,
+      };
+    case PERSONALIZED_PRODUCTS_FAIL:
       return {
         loading: false,
         error: payload,

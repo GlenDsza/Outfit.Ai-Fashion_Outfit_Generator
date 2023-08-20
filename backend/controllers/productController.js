@@ -58,6 +58,19 @@ exports.getProductDetails = asyncErrorHandler(async (req, res, next) => {
   });
 });
 
+exports.getProductByAid = asyncErrorHandler(async (req, res, next) => {
+  const product = await Product.findOne({ article_id: req.params.id });
+
+  if (!product) {
+    return next(new ErrorHandler("Product Not Found", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
 // Increment product impression
 exports.addProductImpression = asyncErrorHandler(async (req, res, next) => {
   const productId = req.params.id;
