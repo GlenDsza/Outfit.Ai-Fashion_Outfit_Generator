@@ -9,6 +9,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import CloseIcon from "@mui/icons-material/Close";
 import Avatar from "@mui/material/Avatar";
+import InsightsIcon from '@mui/icons-material/Insights';
 import { useDispatch, useSelector } from "react-redux";
 import "./Sidebar.css";
 import { useSnackbar } from "notistack";
@@ -49,6 +50,11 @@ const navMenu = [
     icon: <AccountBoxIcon />,
     label: "My Profile",
     ref: "/account",
+  },
+  {
+    icon: <InsightsIcon/>,
+    label: "Fashion Trends",
+    ref: "/admin/FashionTrends"
   },
   {
     icon: <LogoutIcon />,

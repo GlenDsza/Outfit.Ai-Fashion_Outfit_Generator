@@ -37,6 +37,7 @@ import ReviewsTable from "./components/Admin/ReviewsTable";
 import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
 import Trending from "./components/Trending/Trending";
+import FashionTrends from "./components/Admin/FashionTrends";
 import Chatbot from "./components/Generator/Generator";
 import { Fab } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -315,6 +316,16 @@ function App() {
               </Dashboard>
             </ProtectedRoute>
           }
+        ></Route>
+          <Route
+              path="/admin/FashionTrends"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <Dashboard activeTab={7}>
+                    <FashionTrends />
+                  </Dashboard>
+                </ProtectedRoute>
+              }
         ></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
