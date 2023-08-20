@@ -34,7 +34,8 @@ const ProductGrid = () => {
       enqueueSnackbar(error, { variant: "error" });
       dispatch(clearErrors());
     }
-    if (user?.customer_id) dispatch(getRecommendedProducts(user.customer_id));
+    if (user?.customer_id && (recommendedProducts || []).length < 1)
+      dispatch(getRecommendedProducts(user.customer_id));
   }, [dispatch, user, error, enqueueSnackbar]);
 
   return (

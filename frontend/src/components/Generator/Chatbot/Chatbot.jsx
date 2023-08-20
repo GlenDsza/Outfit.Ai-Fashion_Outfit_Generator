@@ -72,6 +72,7 @@ const Chatbot = () => {
   };
 
   const uploadImage = async (url) => {
+    setLoading(true);
     // Image not visible properly
     // setChat((prev) => [...prev, { sender: "ai", message: "", images: [url] }]);
     dispatch(

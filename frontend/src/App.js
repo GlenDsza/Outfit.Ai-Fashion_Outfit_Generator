@@ -40,7 +40,6 @@ import Trending from "./components/Trending/Trending";
 import FashionTrends from "./components/Admin/FashionTrends";
 import Chatbot from "./components/Generator/Generator";
 import { Fab } from "@mui/material";
-import AdbIcon from "@mui/icons-material/Adb";
 import {
   Chart as ChartJS,
   PointElement,
