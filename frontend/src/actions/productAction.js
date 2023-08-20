@@ -34,7 +34,14 @@ import {
   TRENDING_PRODUCTS_REQUEST,
   TRENDING_PRODUCTS_SUCCESS,
   TRENDING_PRODUCTS_FAIL,
+  RECOMMENDED_PRODUCTS_REQUEST,
+  RECOMMENDED_PRODUCTS_SUCCESS,
+  RECOMMENDED_PRODUCTS_FAIL,
+  POPULAR_PRODUCTS_REQUEST,
+  POPULAR_PRODUCTS_SUCCESS,
+  POPULAR_PRODUCTS_FAIL,
 } from "../constants/productConstants";
+import { RECOMMENDER_API_URL } from "../constants/urls.ts";
 
 // Get All Products --- Filter/Search/Sort
 export const getProducts =
@@ -76,6 +83,66 @@ export const getTrendingProducts = () => async (dispatch) => {
     dispatch({
       type: TRENDING_PRODUCTS_FAIL,
       payload: error.response.data.message,
+    });
+  }
+};
+
+// Get Recommended Products from ML model
+export const getRecommendedProducts = (cid) => async (dispatch) => {
+  try {
+    dispatch({ type: RECOMMENDED_PRODUCTS_REQUEST });
+    const { data } = await axios.post(`${RECOMMENDER_API_URL}/recommend`, {
+      cid: cid,
+    });
+    let parsedRecommendedProducts = [];
+    try {
+      parsedRecommendedProducts = JSON.parse(data.data);
+    } catch (e) {
+      console.error("Error parsing recommendedProducts:", e);
+    }
+    const modifiedRecommendedProducts = parsedRecommendedProducts.map(
+      (object) => ({
+        ...object,
+        _id: object._id.$oid,
+      })
+    );
+    dispatch({
+      type: RECOMMENDED_PRODUCTS_SUCCESS,
+      payload: modifiedRecommendedProducts,
+    });
+  } catch (error) {
+    dispatch({
+      type: RECOMMENDED_PRODUCTS_FAIL,
+      payload: error,
+    });
+  }
+};
+
+// Get Popular Products from ML model
+export const getPopularProducts = () => async (dispatch) => {
+  try {
+    dispatch({ type: POPULAR_PRODUCTS_REQUEST });
+
+    const { data } = await axios.post(`${RECOMMENDER_API_URL}/popular`);
+    let parsedPopularProducts = [];
+    try {
+      parsedPopularProducts = JSON.parse(data.data);
+      console.log(parsedPopularProducts[0]._id.$oid);
+    } catch (e) {
+      console.error("Error parsing recommendedProducts:", e);
+    }
+    const modifiedPopularProducts = parsedPopularProducts.map((object) => ({
+      ...object,
+      _id: object._id.$oid,
+    }));
+    dispatch({
+      type: POPULAR_PRODUCTS_SUCCESS,
+      payload: modifiedPopularProducts,
+    });
+  } catch (error) {
+    dispatch({
+      type: POPULAR_PRODUCTS_FAIL,
+      payload: error,
     });
   }
 };

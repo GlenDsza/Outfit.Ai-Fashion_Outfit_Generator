@@ -7,14 +7,14 @@ const OutfitSwiperModal = ({
   imagesObj,
 }) => {
   const [title, setTitle] = useState(
-    imagesObj[0]?.desc ? imagesObj[0]?.desc : "Outfit 1"
+    imagesObj?.length > 0 ? imagesObj[0].desc : "Outfit 1"
   );
   return (
     <div
       className={`modal bg-[#000000F1]  ${
         modalTriggered ? "d-block" : "d-none"
       }`}
-      tabindex="-1"
+      tabIndex="-1"
     >
       <div className="modal-dialog modal-fullscreen">
         <div className="modal-content bg-transparent">

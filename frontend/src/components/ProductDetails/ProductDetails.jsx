@@ -546,6 +546,7 @@ const ProductDetails = () => {
               <ProductSlider
                 title={"Similar Products"}
                 tagline={"Based on the category"}
+                type={"all"}
               />
             </div>
           </main>

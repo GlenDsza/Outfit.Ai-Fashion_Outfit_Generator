@@ -3,16 +3,17 @@ import autoAnimate from "@formkit/auto-animate";
 import OutfitSwiperModal from "../OutfitSwiperModal";
 import { useSelector } from "react-redux";
 
-const ChatMessage = ({ message, imagesObj, setModalTriggered }) => {
+const ChatMessage = ({ message, setModalTriggered }) => {
   const { user } = useSelector((state) => state.user);
   const isAiMessage = message?.sender === "ai";
   const messageStyle = `border-[#999999] break-words border-1 rounded-md p-2 max-w-[90%] ${
     isAiMessage ? "bg-[#FFFFFF22] dropshadow-md mr-auto" : ""
   }`;
+  const imageExist = message.images?.length > 0 ? true : false;
 
   return (
     <>
-      {!imagesObj ? (
+      {!imageExist ? (
         <div className={`flex ${isAiMessage ? "" : "self-end"}`}>
           {isAiMessage && (
             <img
@@ -47,7 +48,7 @@ const ChatMessage = ({ message, imagesObj, setModalTriggered }) => {
             className={`flex flex-col border-[#999999] break-words border-1 rounded-md p-2 max-w-[90%] bg-[#FFFFFF22] dropshadow-md mr-auto`}
           >
             <div className="grid grid-cols-1 sm:grid-cols-2 w-full place-content-start overflow-hidden">
-              {imagesObj.map((image, i) => (
+              {message.images.map((image, i) => (
                 <>
                   <div
                     className="m-2"
@@ -73,7 +74,7 @@ const ChatMessage = ({ message, imagesObj, setModalTriggered }) => {
   );
 };
 
-const ChatBody = ({ chat, imagesObj }) => {
+const ChatBody = ({ chat }) => {
   const parentRef = useRef(null);
   const bottomRef = useRef(null);
   const [modalTriggered, setModalTriggered] = useState(false);
@@ -93,24 +94,25 @@ const ChatBody = ({ chat, imagesObj }) => {
   return (
     <>
       <div className="flex flex-col gap-4" ref={parentRef}>
-        {chat.map((message, i) => (
-          <ChatMessage key={i} message={message} />
-        ))}
-        {imagesObj.length > 1 && (
-          <ChatMessage
-            setModalTriggered={setModalTriggered}
-            imagesObj={imagesObj}
-            key={999}
-          />
-        )}
+        {chat.map((message, i) => {
+          return (
+            <ChatMessage
+              key={i}
+              message={message}
+              setModalTriggered={setModalTriggered}
+            />
+          );
+        })}
 
         <div ref={bottomRef} className="h-3"></div>
       </div>
-      <OutfitSwiperModal
-        modalTriggered={modalTriggered}
-        setModalTriggered={setModalTriggered}
-        imagesObj={imagesObj}
-      />
+      {chat.length > 0 && chat[chat.length - 1].images && (
+        <OutfitSwiperModal
+          modalTriggered={modalTriggered}
+          setModalTriggered={setModalTriggered}
+          imagesObj={chat[chat.length - 1].images}
+        />
+      )}
     </>
   );
 };

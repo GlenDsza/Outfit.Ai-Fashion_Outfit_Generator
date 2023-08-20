@@ -11,32 +11,25 @@ import {
 const Chatbot = () => {
   const [loading, setLoading] = useState(false);
   const [chat, setChat] = useState([]);
-  const [imagesObj, setImagesObj] = useState([]);
 
   const sendMessage = async (newMessage) => {
     const userMessage = newMessage.message;
     await Promise.resolve(setChat((prev) => [...prev, newMessage]));
     setLoading(true);
-    setImagesObj([]);
-    
-    // const { data } = await axios.post(
-    //   "/api/v1/generator/respond",
-    //   dataToSend,
-    //   config
-    // );
 
     const [outfits, llmRecommendations] = await Promise.all([
       getOutfitPrompts(userMessage),
       getLlmRecommendations(userMessage),
     ]);
-    console.log("LLM responses", { outfitPrompts: outfits, llmRecommendations });
+    console.log("LLM responses", {
+      outfitPrompts: outfits,
+      llmRecommendations,
+    });
 
-    setChat((prev) => [...prev, { sender: "ai", message: outfits.answer }]);
-
-    // llmRecommendations is a list of product_id recommended
-    // @TODO - Fetch and Add those in products list
-
-    // @TODO - Call Kenneth's API
+    setChat((prev) => [
+      ...prev,
+      { sender: "ai", message: outfits.answer, images: [] },
+    ]);
 
     const generatedOutfits = await Promise.all(
       outfits.outfit_descriptions.map((prompt, idx) =>
@@ -53,7 +46,10 @@ const Chatbot = () => {
     setLoading(false);
 
     if (generatedOutfits.length) {
-      setImagesObj(generatedOutfits);
+      setChat((prev) => [
+        ...prev,
+        { sender: "ai", message: "", images: generatedOutfits },
+      ]);
     }
   };
 
@@ -69,7 +65,7 @@ const Chatbot = () => {
       </div>
       {/* Chat Body */}
       <div className="h-[90%] overflow-auto w-full max-w-4xl min-w-[20rem] py-8 self-center px-4">
-        <ChatBody chat={chat} imagesObj={imagesObj} />
+        <ChatBody chat={chat} />
       </div>
 
       {/* Input */}

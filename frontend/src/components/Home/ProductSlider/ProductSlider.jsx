@@ -5,8 +5,22 @@ import { getRandomProducts } from "../../../utils/functions";
 import { settings } from "../DealSlider/DealSlider";
 import Product from "./Product";
 
-const ProductSlider = ({ title, tagline }) => {
-  const { loading, products } = useSelector((state) => state.products);
+const ProductSlider = ({ title, tagline, type }) => {
+  const {
+    productsLoading,
+    products,
+    recommendedProductsLoading,
+    recommendedProducts,
+    popularProductsLoading,
+    popularProducts,
+  } = useSelector((state) => ({
+    productsLoading: state.products.loading,
+    products: state.products.products,
+    recommendedProductsLoading: state.recommendedProducts.loading,
+    recommendedProducts: state.recommendedProducts.recommendedProducts,
+    popularProductsLoading: state.popularProducts.loading,
+    popularProducts: state.popularProducts.popularProducts,
+  }));
 
   return (
     <section className="bg-white w-full shadow overflow-hidden">
@@ -24,13 +38,46 @@ const ProductSlider = ({ title, tagline }) => {
         </Link>
       </div>
       <hr />
-      {loading ? null : (
-        <Slider {...settings} className="flex items-center justify-between p-1">
-          {products &&
-            getRandomProducts(products, 12).map((product) => (
-              <Product {...product} key={product._id} />
-            ))}
-        </Slider>
+
+      {type === "all" ? (
+        productsLoading ? null : (
+          <Slider
+            {...settings}
+            className="flex items-center justify-between p-1"
+          >
+            {products &&
+              getRandomProducts(products, 12).map((product) => (
+                <Product {...product} key={product._id} />
+              ))}
+          </Slider>
+        )
+      ) : type === "recommended" ? (
+        recommendedProductsLoading ? null : (
+          <Slider
+            {...settings}
+            className="flex items-center justify-between p-1"
+          >
+            {recommendedProducts &&
+              getRandomProducts(recommendedProducts, 12).map((product) => {
+                console.log(product);
+                return <Product {...product} key={product._id} />;
+              })}
+          </Slider>
+        )
+      ) : type === "trending" ? (
+        popularProductsLoading ? null : (
+          <Slider
+            {...settings}
+            className="flex items-center justify-between p-1"
+          >
+            {popularProducts &&
+              getRandomProducts(popularProducts, 12).map((product) => (
+                <Product {...product} key={product._id} />
+              ))}
+          </Slider>
+        )
+      ) : (
+        ""
       )}
     </section>
   );

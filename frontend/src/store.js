@@ -16,6 +16,8 @@ import {
   productsReducer,
   productReviewsReducer,
   reviewReducer,
+  recommendedProductsReducer,
+  popularProductsReducer,
 } from "./reducers/productReducer";
 import { cartReducer } from "./reducers/cartReducer";
 import { saveForLaterReducer } from "./reducers/saveForLaterReducer";
@@ -36,6 +38,8 @@ const reducer = combineReducers({
   forgotPassword: forgotPasswordReducer,
   products: productsReducer,
   trendingProducts: trendingProductsReducer,
+  recommendedProducts: recommendedProductsReducer,
+  popularProducts: popularProductsReducer,
   productDetails: productDetailsReducer,
   newReview: newReviewReducer,
   cart: cartReducer,

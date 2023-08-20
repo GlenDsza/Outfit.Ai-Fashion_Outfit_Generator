@@ -4,7 +4,12 @@ import Banner from "./Banner/Banner";
 import DealSlider from "./DealSlider/DealSlider";
 import ProductSlider from "./ProductSlider/ProductSlider";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, getSliderProducts } from "../../actions/productAction";
+import {
+  clearErrors,
+  getPopularProducts,
+  getRecommendedProducts,
+  getSliderProducts,
+} from "../../actions/productAction";
 import { useSnackbar } from "notistack";
 import MetaData from "../Layouts/MetaData";
 
@@ -12,7 +17,14 @@ const Home = () => {
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
 
-  const { error, loading } = useSelector((state) => state.products);
+  const { error, loading, user, popularProducts, recommendedProducts } =
+    useSelector((state) => ({
+      error: state.products.error,
+      loading: state.products.loading,
+      user: state.user.user,
+      popularProducts: state.popularProducts,
+      recommendedProducts: state.recommendedProducts,
+    }));
 
   useEffect(() => {
     if (error) {
@@ -20,35 +32,44 @@ const Home = () => {
       dispatch(clearErrors());
     }
     dispatch(getSliderProducts());
-  }, [dispatch, error, enqueueSnackbar]);
+
+    if (user?.customer_id) dispatch(getRecommendedProducts(user.customer_id));
+  }, [dispatch, error, user, enqueueSnackbar]);
+
+  useEffect(() => {
+    dispatch(getPopularProducts());
+  }, []);
 
   return (
     <>
       <MetaData title="Flipkart" />
       <Categories />
       <main className="flex flex-col gap-3 px-2 mt-16 sm:mt-2">
-        <Banner />
-        <DealSlider title={"Discounts for You"} />
+        {/* <Banner /> */}
+
         {!loading && (
           <ProductSlider
-            title={"Suggested for You"}
+            title={"Recommend products"}
             tagline={"Based on Your Activity"}
+            type={"recommended"}
           />
         )}
-        <DealSlider title={"Top Brands, Best Price"} />
+        {/* <DealSlider title={"Top Brands, Best Price"} /> */}
         {!loading && (
           <ProductSlider
-            title={"You May Also Like..."}
-            tagline={"Based on Your Interest"}
+            title={"Trending Products"}
+            tagline={"Based on product popularity"}
+            type={"trending"}
           />
         )}
-        <DealSlider title={"Top Offers On"} />
-        {!loading && (
+        {/* <DealSlider title={"Top Offers On"} /> */}
+        {/* {!loading && (
           <ProductSlider
             title={"Don't Miss These!"}
             tagline={"Inspired by your order"}
           />
-        )}
+        )} */}
+        <DealSlider title={"Discounts for You"} />
       </main>
     </>
   );

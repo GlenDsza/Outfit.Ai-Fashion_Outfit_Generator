@@ -9,7 +9,7 @@ const ChatInput = ({ sendMessage, loading }) => {
 
   const handleSubmit = (event) => {
     if (text.trim() === "") return;
-    sendMessage({ sender: "user", message: text });
+    sendMessage({ sender: "user", message: text, images: [] });
     setText("");
   };
 

@@ -36,6 +36,12 @@ import {
   SLIDER_PRODUCTS_FAIL,
   SLIDER_PRODUCTS_REQUEST,
   SLIDER_PRODUCTS_SUCCESS,
+  RECOMMENDED_PRODUCTS_REQUEST,
+  RECOMMENDED_PRODUCTS_SUCCESS,
+  RECOMMENDED_PRODUCTS_FAIL,
+  POPULAR_PRODUCTS_REQUEST,
+  POPULAR_PRODUCTS_SUCCESS,
+  POPULAR_PRODUCTS_FAIL,
 } from "../constants/productConstants";
 
 export const productsReducer = (
@@ -289,6 +295,66 @@ export const reviewReducer = (state = {}, { type, payload }) => {
       return {
         ...state,
         isDeleted: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const recommendedProductsReducer = (
+  state = { recomendedProducts: [] },
+  { type, payload }
+) => {
+  switch (type) {
+    case RECOMMENDED_PRODUCTS_REQUEST:
+      return {
+        loading: true,
+        recommendedProducts: [],
+      };
+    case RECOMMENDED_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        recommendedProducts: payload,
+      };
+    case RECOMMENDED_PRODUCTS_FAIL:
+      return {
+        loading: false,
+        error: payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const popularProductsReducer = (
+  state = { popularProducts: [] },
+  { type, payload }
+) => {
+  switch (type) {
+    case POPULAR_PRODUCTS_REQUEST:
+      return {
+        loading: true,
+        popularProducts: [],
+      };
+    case POPULAR_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+        popularProducts: payload,
+      };
+    case POPULAR_PRODUCTS_FAIL:
+      return {
+        loading: false,
+        error: payload,
       };
     case CLEAR_ERRORS:
       return {
