@@ -38,8 +38,8 @@ const Chatbot = () => {
     setLoading(true);
 
     const [outfits, llmRecommendations] = await Promise.all([
-      getOutfitPrompts(userMessage),
-      getLlmRecommendations(userMessage),
+      getOutfitPrompts(userMessage, chat.length < 11),
+      getLlmRecommendations(userMessage, chat.length < 11),
     ]);
 
     setChat((prev) => [
