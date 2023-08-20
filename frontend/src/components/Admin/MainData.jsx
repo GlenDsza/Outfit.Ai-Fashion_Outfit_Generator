@@ -6,6 +6,7 @@ import { getAllOrders } from "../../actions/orderAction";
 import { getAllUsers } from "../../actions/userAction";
 import { categories } from "../../utils/constants";
 import MetaData from "../Layouts/MetaData";
+import { Col, Row } from "react-bootstrap";
 
 const MainData = () => {
   const dispatch = useDispatch();
@@ -155,52 +156,62 @@ const MainData = () => {
     <>
       <MetaData title="Admin Dashboard | Flipkart" />
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-6">
-        <div className="flex flex-col bg-purple-600 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
+      <Row className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-6" style={{margin:'2vh'}}>
+        <Col className="bg-purple-600 text-white rounded p-6">
           <h4 className="text-gray-100 font-medium">Total Sales Amount</h4>
           <h2 className="text-2xl font-bold">
             ₹{totalAmount?.toLocaleString()}
           </h2>
-        </div>
-        <div className="flex flex-col bg-red-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
+        </Col>
+        <Col className="bg-red-500 text-white rounded p-6">
           <h4 className="text-gray-100 font-medium">Total Orders</h4>
           <h2 className="text-2xl font-bold">{orders?.length}</h2>
-        </div>
-        <div className="flex flex-col bg-yellow-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
+        </Col>
+        <Col className="bg-yellow-500 text-white rounded p-6">
           <h4 className="text-gray-100 font-medium">Total Products</h4>
           <h2 className="text-2xl font-bold">{products?.length}</h2>
-        </div>
-        <div className="flex flex-col bg-green-500 text-white gap-2 rounded-xl shadow-lg hover:shadow-xl p-6">
+        </Col>
+        <Col className="bg-green-500 text-white rounded p-6">
           <h4 className="text-gray-100 font-medium">Total Users</h4>
           <h2 className="text-2xl font-bold">{users?.length}</h2>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full">
-        <div className="bg-white rounded-xl h-auto w-full shadow-lg p-2">
-          <Line data={lineState} />
-        </div>
+      <Row style={{margin:'2vh'}}>
 
-        <div className="bg-white rounded-xl shadow-lg p-4 text-center">
-          <span className="font-medium uppercase text-gray-800">
-            Order Status
-          </span>
-          <Pie data={pieState} />
-        </div>
-      </div>
+        <Col sm={8} >
+          <div className="bg-white rounded-xl h-auto shadow-lg p-2" style={{marginRight:'1vw'}}>
+            <Line data={lineState} />
+          </div>
 
-      <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-8 min-w-full mb-6">
-        <div className="bg-white rounded-xl h-auto w-full shadow-lg p-2">
-          <Bar data={barState} />
-        </div>
+        </Col>
 
-        <div className="bg-white rounded-xl shadow-lg p-4 text-center">
-          <span className="font-medium uppercase text-gray-800">
-            Stock Status
-          </span>
-          <Doughnut data={doughnutState} />
-        </div>
-      </div>
+        <Col sm={4} >
+          <div className="bg-white rounded-xl h-auto shadow-lg p-2" >
+            <span className="font-medium uppercase text-gray-800">
+              Order Status
+            </span>
+            <Pie data={pieState} />
+          </div>
+        </Col>
+      </Row>
+
+      <Row style={{margin:'2vh'}}>
+        <Col sm={8} >
+          <div className="bg-white rounded-xl h-auto shadow-lg p-2" style={{marginRight:'1vw'}}>
+            <Bar data={barState} />
+          </div>
+        </Col>
+
+        <Col sm={4} >
+          <div className="bg-white rounded-xl h-auto shadow-lg p-2" >
+            <span className="font-medium uppercase text-gray-800" >
+              Stock Status
+            </span>
+            <Doughnut data={doughnutState} />
+          </div>
+        </Col>
+      </Row>
     </>
   );
 };
