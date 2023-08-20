@@ -37,7 +37,7 @@ function FashionTrends(props) {
                      style={{ fontSize: '2vh' }}>
                     <Row>
                         <Col>
-                            Products Scraped:
+                            Items Scraped:
                         </Col>
                         <Col>
                             {trendsCount}
@@ -100,11 +100,12 @@ const styles = {
     accordionHeading: {
         fontSize: '3vh',
         color: '#1a232e',
+        width: '10vw',
     },
     lastScraped: {
         marginLeft: '10vh',
         color: '#989898',
-        fontSize: '2vh',
+        fontSize: '3vh',
     }
 }
 
