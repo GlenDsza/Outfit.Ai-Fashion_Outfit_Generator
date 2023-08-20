@@ -24,7 +24,9 @@ export async function getOutfitPrompts(prompt: string, newChat: boolean) {
     outfit_descriptions: string[];
   } = await axios
     .post(`${LLM_API_URL}/generativeOutfits`, {
-      prompt,
+      prompt: `${prompt} for ${localStorage.getItem(
+        "gender"
+      )} aged ${localStorage.getItem("age")} `,
       new: newChat,
     })
     .then((res) => res.data);
@@ -49,7 +51,9 @@ export async function getLlmRecommendations(prompt: string, newChat: boolean) {
   } = await axios
     .post(`${LLM_API_URL}/recommendedproducts`, {
       new: newChat,
-      prompt,
+      prompt: `${prompt} for ${localStorage.getItem(
+        "gender"
+      )} aged ${localStorage.getItem("age")} `,
     })
     .then((res) => res.data);
 
@@ -66,7 +70,11 @@ function sdNegativePromptGenerator() {
 function finalSdPromptGenerator(userPrompt, rawOutfitPrompt) {
   const prefix =
     "8k uhd, dslr, soft lighting, high quality, film grain, full frame, Fujifilm XT3 ";
-  const body = `full portrait photo ${userPrompt} wearing ${rawOutfitPrompt} <lora:add_detail:1> `;
+  const str = ` for ${localStorage.getItem(
+    "gender"
+  )} aged ${localStorage.getItem("age")}`;
+
+  const body = `full portrait photo ${userPrompt} ${str} wearing ${rawOutfitPrompt} <lora:add_detail:1> `;
   const postfix = "";
   return prefix + body + postfix;
 }

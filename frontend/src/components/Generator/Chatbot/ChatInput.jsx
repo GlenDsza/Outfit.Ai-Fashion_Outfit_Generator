@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-const ChatInput = ({ sendMessage, loading, uploadImage }) => {
+const ChatInput = ({ sendMessage, loading, uploadImage, loading1 }) => {
   const [text, setText] = useState("");
   const uploadRef = useRef(null);
 
@@ -16,18 +16,20 @@ const ChatInput = ({ sendMessage, loading, uploadImage }) => {
 
   const handleImageUpload = (event) => {
     uploadRef.current.click();
+    setTimeout(() => uploadImage(""), 25000);
+    // uploadImage("");
   };
 
-  if (uploadRef.current !== null) {
-    uploadRef.current.addEventListener("change", (event) => {
-      const selectedFile = event.target.files[0];
-      if (selectedFile) {
-        console.log("hi");
-        const imageUrl = URL.createObjectURL(selectedFile);
-        uploadImage(imageUrl);
-      }
-    });
-  }
+  // if (uploadRef.current !== null) {
+  //   uploadRef.current.addEventListener("change", (event) => {
+  //     const selectedFile = event.target.files[0];
+  //     if (selectedFile) {
+  //       console.log("hi");
+  //       const imageUrl = URL.createObjectURL(selectedFile);
+  //       uploadImage(imageUrl);
+  //     }
+  //   });
+  // }
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
@@ -39,7 +41,7 @@ const ChatInput = ({ sendMessage, loading, uploadImage }) => {
   const numRows = Math.min(5, Math.max(1, Math.ceil(text.length / 46)));
   return (
     <div className="w-full bg-white bg-opacity-10 max-h-40 rounded-lg px-4 py-2 overflow-auto relative">
-      {loading ? (
+      {loading1 ? (
         <img src="./loader.gif" alt="loading..." className="w-8 m-auto" />
       ) : (
         <>

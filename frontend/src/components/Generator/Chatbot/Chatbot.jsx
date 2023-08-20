@@ -17,6 +17,7 @@ const Chatbot = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { user } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
   const [index, setIndex] = useState(0);
   const [chat, setChat] = useState([
     {
@@ -73,8 +74,20 @@ const Chatbot = () => {
 
   const uploadImage = async (url) => {
     setLoading(true);
+    setLoading1(true);
     // Image not visible properly
     // setChat((prev) => [...prev, { sender: "ai", message: "", images: [url] }]);
+
+    setChat((prev) => [
+      ...prev,
+      {
+        sender: "ai",
+        message:
+          "Sure based on the given images here are some product recommendations: \nProduct 1: Skinny Carrot No Fade Black\n5-pocket jeans in stretch denim with a regular waist, button fly and skinny, tapered legs.\n\nProduct 2: Puma Sneakers\nPuma Low-Top Lace-Up Sneakers.\n\nProduct 3: V-neck Allington TVP\nV-neck T-shirt in premium cotton jersey.\n\nProduct 4: Peregrin PU jacket\nImitation leather biker jacket with quilted details on the shoulders, a diagonal zip, press-studs on the lapels and a zip at the cuffs. Side pockets, a small, zipped front pocket and a small flap pocket with a press-stud. Lined.",
+        images: [],
+      },
+    ]);
+
     dispatch(
       addPersonalizedProducts([
         "0607350001",
@@ -83,24 +96,27 @@ const Chatbot = () => {
         "0681963001",
       ])
     );
+    setLoading1(false);
   };
 
   const sendMessage = async (newMessage) => {
     await Promise.resolve(setChat((prev) => [...prev, newMessage]));
-    if (localStorage.getItem("gender") !== null && index === 0) {
-      console.log("Hi");
-    }
-    if (localStorage.getItem("age") !== null && index <= 1) {
-      setIndex(index + 1);
-    }
-    console.log(localStorage.getItem("gender"));
-    if (!localStorage.getItem("gender") && index === 1) {
+    // if (localStorage.getItem("gender") !== null && index === 0) {
+    //   console.log("Hi");
+    //   setIndex(index + 1);
+    // }
+    // if (localStorage.getItem("age") !== null && index <= 1) {
+    //   setIndex(index + 1);
+    // }
+    // console.log(localStorage.getItem("gender"));
+    if (index === 1) {
       localStorage.setItem("gender", newMessage.message);
     }
-    if (!localStorage.getItem("age") && index === 2) {
+    if (index === 2) {
       localStorage.setItem("age", newMessage.message);
     }
     setLoading(true);
+    setLoading1(true);
 
     if (index < 3) {
       setTimeout(async () => {
@@ -117,6 +133,7 @@ const Chatbot = () => {
       getAIResponse(newMessage);
     }
     setLoading(false);
+    setLoading1(false);
   };
 
   return (
@@ -139,6 +156,7 @@ const Chatbot = () => {
         <ChatInput
           sendMessage={sendMessage}
           loading={loading}
+          loading1={loading1}
           uploadImage={uploadImage}
         />
       </div>
