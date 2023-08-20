@@ -3,7 +3,7 @@ import Footer from "./components/Layouts/Footer/Footer";
 import Header from "./components/Layouts/Header/Header";
 import Login from "./components/User/Login";
 import Register from "./components/User/Register";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import { loadUser } from "./actions/userAction";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -37,6 +37,7 @@ import ReviewsTable from "./components/Admin/ReviewsTable";
 import Wishlist from "./components/Wishlist/Wishlist";
 import NotFound from "./components/NotFound";
 import Trending from "./components/Trending/Trending";
+import FashionTrends from "./components/Admin/FashionTrends";
 import Chatbot from "./components/Generator/Generator";
 import { Fab } from "@mui/material";
 import AdbIcon from "@mui/icons-material/Adb";
@@ -101,10 +102,20 @@ function App() {
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
   //   if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
   // });
-
+    const navigator = useNavigate();
+    const location = useLocation();
   return (
     <>
       <Header />
+        {
+            location.pathname == "/ai-outfit-generator" ?null :<Fab style={styles.fabio}  onClick={ () => navigator("/ai-outfit-generator") }>
+
+                <AdbIcon sx={{ fontSize: 50 }} />
+
+            </Fab>
+        }
+
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -316,14 +327,35 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+          <Route
+              path="/admin/FashionTrends"
+              element={
+                <ProtectedRoute isAdmin={true}>
+                  <Dashboard activeTab={7}>
+                    <FashionTrends />
+                  </Dashboard>
+                </ProtectedRoute>
+              }
+        ></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
-      <Fab color="primary">
-        <AdbIcon sx={{ fontSize: 35 }} />
-      </Fab>
+
       <Footer />
     </>
   );
 }
+
+const styles =   {
+        fabio:
+            {
+                background: '#1a232e',
+                color: '#ffffff',
+                position: 'fixed',
+                top:'80vh',
+                left:'90vw',
+                height:'10vh',
+                width:'10vh',
+            },
+    }
 
 export default App;
