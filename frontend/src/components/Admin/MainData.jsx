@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Doughnut, Line, Pie, Bar } from "react-chartjs-2";
 import { getAdminProducts } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,16 +23,25 @@ const MainData = () => {
     }
   });
 
+  const [totalAmount, setTotalAmount] = useState(0)
+
   useEffect(() => {
     dispatch(getAdminProducts());
     dispatch(getAllOrders());
     dispatch(getAllUsers());
-  }, [dispatch]);
 
-  let totalAmount = orders?.reduce(
-    (total, order) => total + order.totalPrice,
-    0
-  );
+
+  }, [dispatch]);
+  useEffect(() =>
+  {
+    let totalA = orders?.reduce(
+        (total, order) => total + order.product.price * order.product.quantity,
+        0
+    );
+    setTotalAmount(totalA)
+  }, [orders])
+
+
 
   const months = [
     "January",
@@ -160,7 +169,7 @@ const MainData = () => {
         <Col className="bg-purple-600 text-white rounded p-6">
           <h4 className="text-gray-100 font-medium">Total Sales Amount</h4>
           <h2 className="text-2xl font-bold">
-            ₹{totalAmount?.toLocaleString()}
+            ₹{totalAmount}
           </h2>
         </Col>
         <Col className="bg-red-500 text-white rounded p-6">
